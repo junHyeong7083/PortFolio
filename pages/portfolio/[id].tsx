@@ -216,8 +216,8 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
 
               {/* Game Preview */}
               <div className="hidden md:block">
-                <div className={`bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 ${portfolio.platform?.includes("Mobile") ? "max-w-xs mx-auto" : ""}`}>
-                  <div className={`${portfolio.platform?.includes("Mobile") ? "aspect-[9/16]" : "aspect-video"} bg-gray-800/50 rounded-xl overflow-hidden`}>
+                <div className={`bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 ${(portfolio as any).info?.platform?.includes("Mobile") ? "max-w-xs mx-auto" : ""}`}>
+                  <div className={`${(portfolio as any).info?.platform?.includes("Mobile") ? "aspect-[9/16]" : "aspect-video"} bg-gray-800/50 rounded-xl overflow-hidden`}>
                     <img
                       src={`${router.basePath}${(portfolio as any).hero?.titleImage || portfolio.thumbnail}`}
                       alt={portfolio.title}
@@ -529,7 +529,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
             </div>
 
             {/* Screenshots - 모바일 게임은 세로형, 나머지는 가로형 */}
-            {portfolio.platform?.includes("Mobile") ? (
+            {(portfolio as any).info?.platform?.includes("Mobile") ? (
               // 모바일 게임 (세로형 이미지) - History
               <div className="flex flex-wrap justify-center gap-6 mb-8">
                 {(portfolio as any).hero?.media?.images?.map((imgSrc: string, idx: number) => (
