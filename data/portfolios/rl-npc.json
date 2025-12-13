@@ -22,8 +22,7 @@
         "/assets/portfolios/RL-NPC/image1.png",
         "/assets/portfolios/RL-NPC/image2.png",
         "/assets/portfolios/RL-NPC/image3.png"
-      ],
-      "video": "/assets/portfolios/RL-NPC/video.mp4"
+      ]
     }
   },
 
@@ -149,6 +148,7 @@
   "links": {
     "github": "https://github.com/junHyeong7083/rl-multiagent-combat-unity",
     "demo": "",
-    "video": ""
+    "video": "",
+    "paper": "/assets/portfolios/RL-NPC/rlnpcpdf.pdf"
   }
 }

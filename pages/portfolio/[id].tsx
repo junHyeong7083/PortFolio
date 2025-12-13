@@ -201,6 +201,16 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                       💻 GitHub
                     </a>
                   )}
+                  {(portfolio.links as any).paper && (
+                    <a
+                      href={`${router.basePath}${(portfolio.links as any).paper}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-800 transition-all"
+                    >
+                      📄 논문 PDF
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -275,7 +285,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
                     <span className="text-green-500 flex-shrink-0">✓</span>
-                    <span><strong>엔진:</strong> {portfolio.engine}</span>
+                    <span><strong>엔진:</strong> {(portfolio as any).info?.engine || portfolio.engine}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-500 flex-shrink-0">✓</span>
@@ -283,7 +293,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-500 flex-shrink-0">✓</span>
-                    <span><strong>플랫폼:</strong> {portfolio.platform}</span>
+                    <span><strong>플랫폼:</strong> {(portfolio as any).info?.platform || portfolio.platform}</span>
                   </li>
                 </ul>
               </div>
@@ -618,6 +628,13 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                     <li>
                       <a href={portfolio.links.video} className="text-gray-400 hover:text-white flex items-center gap-2">
                         📺 Play Video
+                      </a>
+                    </li>
+                  )}
+                  {(portfolio.links as any).paper && (
+                    <li>
+                      <a href={`${router.basePath}${(portfolio.links as any).paper}`} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white flex items-center gap-2">
+                        📄 논문 PDF
                       </a>
                     </li>
                   )}
