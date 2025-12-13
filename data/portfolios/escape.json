@@ -1,0 +1,151 @@
+{
+  "id": "escape",
+  "title": "Escape",
+  "subtitle": "뱀파이어 서바이벌 게임",
+  "thumbnail": "/assests/Escape/title.png",
+  "order": 2,
+  "periodDisplay": "2024.03 ~ 06월",
+  "gradient": ["#0a1612", "#34d399"],
+  "tags": ["Unity", "C#", "2D", "Game", "Team Project"],
+  "summary": "5분간 몰려오는 몬스터를 처치하며 생존하는 로그라이크 서바이벌 게임. 3종 캐릭터, 각 4개 고유 스킬, 오브젝트 풀링으로 60fps 유지.",
+
+  "hero": {
+    "titleImage": "/assests/Escape/title.png",
+    "stats": [
+      { "icon": "👥", "label": "7인 개발", "sub": "기획 1, 개발 1, 그래픽 5" },
+      { "icon": "🎮", "label": "Unity 2022", "sub": "2D 최적화" },
+      { "icon": "⚡", "label": "6+ Systems", "sub": "Advanced Features" },
+      { "icon": "📅", "label": "3개월", "sub": "제작 기간" }
+    ],
+    "media": {
+      "images": [
+        "/assests/Escape/image1.png",
+        "/assests/Escape/image2.png",
+        "/assests/Escape/image3.png"
+      ],
+      "video": "/assests/Escape/video.mp4"
+    }
+  },
+
+  "info": {
+    "period": "2024",
+    "duration": "3개월",
+    "team": "7인 개발",
+    "teamDetail": "기획 1명, 개발 1명, 그래픽 5명",
+    "role": "게임 개발 총괄",
+    "engine": "Unity 2D",
+    "platform": "PC"
+  },
+
+  "features": [
+    "3종 캐릭터 × 4개 스킬 (총 12개) 구현",
+    "오브젝트 풀링으로 GC 90% 감소",
+    "점진적 난이도 시스템"
+  ],
+
+  "techStack": [
+    { "category": "엔진", "value": "Unity 2D" },
+    { "category": "언어", "value": "C#" },
+    { "category": "데이터", "value": "JSON, PlayerPrefs" },
+    { "category": "버전관리", "value": "Git" }
+  ],
+
+  "techStackGroups": [
+    {
+      "title": "게임 엔진",
+      "icon": "🎮",
+      "items": [
+        { "name": "Unity 2022", "desc": "2D 최적화 버전", "abbr": "U" },
+        { "name": "2D Tilemap", "desc": "프로시저럴 맵 생성", "abbr": "TM" }
+      ]
+    },
+    {
+      "title": "최적화",
+      "icon": "⚡",
+      "items": [
+        { "name": "Object Pooling", "desc": "GC 90% 감소", "abbr": "OP" },
+        { "name": "Coroutine", "desc": "비동기 스폰 처리", "abbr": "CO" }
+      ]
+    },
+    {
+      "title": "UI & 렌더링",
+      "icon": "📹",
+      "items": [
+        { "name": "TextMeshPro", "desc": "데미지 텍스트 풀링", "abbr": "TMP" },
+        { "name": "ParticleSystem", "desc": "피/잔상 이펙트", "abbr": "PS" }
+      ]
+    },
+    {
+      "title": "데이터 관리",
+      "icon": "💾",
+      "items": [
+        { "name": "PlayerPrefs", "desc": "캐릭터 선택 저장", "abbr": "PP" },
+        { "name": "Static 변수", "desc": "스킬 데이터 공유", "abbr": "ST" }
+      ]
+    }
+  ],
+
+  "sections": [
+    {
+      "title": "오브젝트 풀링",
+      "content": "### 성능 최적화\n- DamageTextPool: 10개 텍스트 사전 할당 및 페이드 아웃\n- BloodEffect: 4종류 피 이펙트 각 50개씩 (총 200개)\n- MonsterManager: 타입별 몬스터 풀 + 아이템 200개 풀링\n\n### 적용 효과\n- Instantiate/Destroy 호출 최소화로 GC 부하 감소\n- 안정적인 60fps 유지",
+      "codeFile": "DamageTextPool.cs",
+      "code": "public class DamageTextPool : MonoBehaviour\n{\n    public GameObject damageTextPrefab;\n    public int poolSize = 10;\n    private List<GameObject> damageTextPool = new List<GameObject>();\n\n    void InitializeDamageTextPool()\n    {\n        GameObject parentObject = new GameObject(\"DamageTextPools\");\n        for (int i = 0; i < poolSize; i++)\n        {\n            GameObject damageText = Instantiate(damageTextPrefab, parentObject.transform);\n            damageText.SetActive(false);\n            damageTextPool.Add(damageText);\n        }\n    }\n\n    public void ShowDamageText(Vector3 position, float damage, int check)\n    {\n        for (int i = 0; i < damageTextPool.Count; i++)\n        {\n            if (!damageTextPool[i].activeSelf)\n            {\n                damageTextPool[i].transform.position = position;\n                TextMeshPro textMesh = damageTextPool[i].GetComponent<TextMeshPro>();\n                \n                if (check == 5) // 크리티컬!\n                {\n                    textMesh.fontStyle = FontStyles.Bold;\n                    textMesh.fontSize = fontSize + 0.5f;\n                    textMesh.color = Color.yellow;\n                }\n                \n                damageTextPool[i].SetActive(true);\n                StartCoroutine(FadeOutDamageText(damageTextPool[i]));\n                break;\n            }\n        }\n    }\n}"
+    },
+    {
+      "title": "몬스터 AI",
+      "content": "### MonsterController \n- Rigidbody2D.MovePosition 기반 플레이어 추적\n- 캐릭터별 스킬 태그 충돌 처리 (PlayerA_One, PlayerB_Two 등)\n- 사망 시 랜덤 사운드 (6종) + 아이템 드롭\n\n### 특수 상호작용\n- 시간 정지 (playerAFourbool): 애니메이터 정지\n- 자기장 (playerBTwobool): Vector3.MoveTowards로 흡인\n- 고스트 모드 (playerBFourbool): 속도 50% 감소 + 알파값 0.5",
+      "codeFile": "MonsterController.cs",
+      "code": "void Update()\n{\n    // 시간 정지 스킬 체크\n    if (WeaponDataManager.playerAFourbool)\n        animator.SetBool(\"MonsterTimeStop\", true);\n    else\n        animator.SetBool(\"MonsterTimeStop\", false);\n\n    // 고스트 모드 스킬 체크\n    if (WeaponDataManager.playerBFourbool)\n    {\n        if (!isOnes)\n        {\n            Speed /= 2f;  // 속도 50% 감소\n            isOnes = true;\n        }\n        circleCollider2D.isTrigger = true;\n    }\n\n    // 플레이어 추적 이동\n    if (!WeaponDataManager.playerAFourbool && isMove)\n    {\n        Vector2 dirV = (targetRigid.position - rigidbody2D.position);\n        Vector2 nextV = dirV.normalized * Speed * Time.deltaTime;\n        rigidbody2D.MovePosition(rigidbody2D.position + nextV);\n        \n        // 자기장 스킬 활성화 시 흡인\n        if (WeaponDataManager.playerBTwobool && isMagnetic)\n        {\n            GameObject magnetic = GameObject.Find(\"magneticField\");\n            transform.position = Vector3.MoveTowards(\n                transform.position, magnetic.transform.position, 1f * Time.deltaTime);\n        }\n    }\n}"
+    },
+    {
+      "title": "스킬 시스템",
+      "content": "### 캐릭터 A (White) - 밸런스형\n- Skill 1: 연속 슬래시 (25 데미지)\n- Skill 2: 원형 범위 공격 (15 데미지, 2초 쿨타임)\n- Skill 3: 다중 투사체 (100 데미지)\n- Skill 4: 시간 정지 (4초 지속, 30초 쿨타임)\n\n### 캐릭터 B (Blue) - 유틸리티형\n- Skill 1: 부메랑 도끼 (3단계: 전진→회전→귀환)\n- Skill 2: 자기장 (몬스터 흡인)\n- Skill 3: 지속 데미지 (25 데미지)\n- Skill 4: 고스트 모드 (10초 지속, 30초 쿨타임)",
+      "codeFile": "WeaponDataManager.cs",
+      "code": "public class WeaponDataManager : MonoBehaviour\n{\n    #region PlayerA\n    public static float playerAOneAtk = 25f;\n    public static float playerATwoAtk = 15f;\n    public static float playerATwoCoolTime = 2f;\n    public static float playerAThreeAtk = 100f;\n    public static float playerAFourTime = 4f;\n    public static float playerAFourCoolTime = 30f;\n    public static bool playerAFourbool = false;\n    #endregion\n\n    #region PlayerB\n    public static float playerBOneAtk = 25f;\n    public static float playerBTwoSize = 2;\n    public static bool playerBTwobool = false;\n    public static float playerBThreeDamage = 25f;\n    public static float playerBFourTime = 10f;\n    public static float playerBFourCoolTime = 30f;\n    public static bool playerBFourbool = false;\n    #endregion\n}"
+    },
+    {
+      "title": "난이도 시스템",
+      "content": "### MonsterManager 동적 스폰\n- 시간 기반 (standardTime) 몬스터 티어 해금\n- 코루틴으로 spawndelayTime 간격 스폰\n- 플레이어 주변 랜덤 위치 생성\n- 200개 아이템 풀 사전 할당\n\n### 설계 의도\n- 초반: 1티어 몬스터로 적응\n- 중반: 2~3티어 동시 스폰\n- 후반: 전체 티어 혼합 스폰",
+      "codeFile": "MonsterManager.cs",
+      "code": "private IEnumerator SpawnMonster(float delay, int monsterNumber, int nextmonterNumber)\n{\n    while (true)\n    {\n        yield return new WaitForSeconds(delay);\n        \n        // 현재 티어 몬스터 스폰\n        GameObject inactiveMonster = monsterPools[monsterNumber - 1]\n            .Find(monster => !monster.activeSelf);\n        if (inactiveMonster != null)\n        {\n            inactiveMonster.SetActive(true);\n            inactiveMonster.transform.position = GetRandomSpawnPosition();\n        }\n\n        // 다음 티어 몬스터도 동시 스폰\n        if (nextmonterNumber <= monsterPrefabs.Length - 1)\n        {\n            GameObject inactiveNextMonster = monsterPools[nextmonterNumber - 1]\n                .Find(monster => !monster.activeSelf);\n            if (inactiveNextMonster != null)\n            {\n                inactiveNextMonster.SetActive(true);\n                inactiveNextMonster.transform.position = GetRandomSpawnPosition();\n            }\n        }\n    }\n}"
+    },
+    {
+      "title": "맵 생성",
+      "content": "### 프로시저럴 타일맵 생성\n- spawndistance 간격으로 오브젝트 배치\n- 2D 배열 checkPos로 충돌 방지\n- spawnPercentage 확률로 랜덤 생성\n\n### 구현 효과\n- 매 플레이마다 다른 맵\n- 오브젝트 클러스터링 방지\n- 수동 레벨 디자인 불필요",
+      "codeFile": "TilemapGenerator.cs",
+      "code": "void GenerateRandomObject()\n{\n    int[][] checkPos = new int[width][];\n    for (int i = 0; i < width; i++)\n        checkPos[i] = new int[height];\n\n    for (int x = 0; x < width; x++)\n    {\n        for (int y = 0; y < height; y++)\n        {\n            if (checkPos[x][y] == 1) continue;\n\n            if (Random.Range(0f, 100f) < spawnPercentage)\n            {\n                // spawndistance 범위 내 충돌 체크\n                bool isValidPosition = true;\n                for (int i = x; i < x + spawndistance; i++)\n                    for (int j = y; j < y + spawndistance; j++)\n                        if (i < width && j < height && checkPos[i][j] == 1)\n                            isValidPosition = false;\n\n                if (isValidPosition)\n                {\n                    int pickIndex = Random.Range(0, objectTile.Length);\n                    layerIndex[1].SetTile(new Vector3Int(x, y, 0), objectTile[pickIndex]);\n\n                    // 해당 범위 점유 표시\n                    for (int i = x; i < x + spawndistance; i++)\n                        for (int j = y; j < y + spawndistance; j++)\n                            if (i < width && j < height)\n                                checkPos[i][j] = 1;\n                }\n            }\n        }\n    }\n}"
+    },
+    {
+      "title": "캐릭터 스탯",
+      "content": "### White (밸런스형) - CharacterIndex 0\n- HP: 200, 속도: 3, 공격력: 100, 방어율: 80%\n- 시간 정지 궁극기로 위기 탈출\n\n### Blue (유틸리티형) - CharacterIndex 1\n- HP: 150, 속도: 5, 공격력: 150, 방어율: 90%\n- 고속 이동 + 고스트 모드\n\n### Green (고화력형) - CharacterIndex 2\n- HP: 250, 속도: 4, 공격력: 200, 방어율: 60%\n- 높은 공격력, 낮은 방어율",
+      "codeFile": "PlayerState.cs",
+      "code": "public class PlayerState : MonoBehaviour\n{\n    public static float Defense;\n    public static float Damage;\n    public static float Hp;\n    public static float Speed;\n\n    [SerializeField] int CharacterIndex;\n\n    private void Awake()\n    {\n        switch (CharacterIndex)\n        {\n            case 0:  // White - 밸런스형\n                Hp = 200f;\n                Speed = 3;\n                Damage = 100;\n                Defense = 0.8f;\n                break;\n\n            case 1:  // Blue - 유틸리티형\n                Hp = 150f;\n                Speed = 5;\n                Damage = 150;\n                Defense = 0.9f;\n                break;\n\n            case 2:  // Green - 고화력형\n                Hp = 250;\n                Speed = 4;\n                Damage = 200;\n                Defense = 0.6f;\n                break;\n        }\n    }\n}"
+    }
+  ],
+
+  "designPatterns": [
+    { "pattern": "Singleton", "usage": "PlayerState, CharacterManager 등 전역 상태 관리" },
+    { "pattern": "Object Pool", "usage": "DamageTextPool, BloodEffect, MonsterManager 재사용" },
+    { "pattern": "State Flag", "usage": "playerAFourbool, playerBTwobool 등 스킬 활성화 상태" },
+    { "pattern": "Coroutine", "usage": "MonsterManager 스폰, FadeOut 등 비동기 처리" }
+  ],
+
+  "achievements": [
+    "오브젝트 풀링으로 안정적인 60fps 유지",
+    "3종 캐릭터 × 4개 스킬 (12개) 완성"
+  ],
+
+  "lessonsLearned": [
+    "대량 오브젝트 관리에서 Object Pooling의 중요성 체감",
+    "데이터 관리의 중요성 이해",
+    "협업 프로젝트에서 명확한 코드 구조의 필요성 인식",
+    "반복 테스트를 통한 밸런스 조정 경험"
+  ],
+
+  "links": {
+    "github": "https://github.com/junHyeong7083/DeathSurvival",
+    "demo": "",
+    "video": "https://youtu.be/BIkVpv60Fms"
+  }
+}

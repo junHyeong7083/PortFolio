@@ -1,0 +1,154 @@
+{
+  "id": "rl-npc",
+  "title": "강화학습 협동 NPC",
+  "subtitle": "유저 적응형 AI 전투 시스템",
+  "thumbnail": "/assests/RL-NPC/title.png",
+  "order": 4,
+  "periodDisplay": "2024.11",
+  "gradient": ["#0a1612", "#059669"],
+  "tags": ["Python", "PyTorch", "Unity", "C#", "Reinforcement Learning"],
+  "summary": "PPO 기반 5vs5 멀티에이전트 강화학습 시스템. 2단계 학습 파이프라인으로 다양한 플레이어 스타일에 적응하는 협동 NPC 구현. Python-Unity 실시간 연동.",
+
+  "hero": {
+    "titleImage": "/assests/RL-NPC/title.png",
+    "stats": [
+      { "icon": "👥", "label": "2인 개발", "sub": "AI 학습, Unity 연동" },
+      { "icon": "🎮", "label": "Unity 2022", "sub": "3D 시각화" },
+      { "icon": "⚡", "label": "5+ Systems", "sub": "Advanced Features" },
+      { "icon": "📅", "label": "2개월", "sub": "제작 기간" }
+    ],
+    "media": {
+      "images": [
+        "/assests/RL-NPC/image1.png",
+        "/assests/RL-NPC/image2.png",
+        "/assests/RL-NPC/image3.png"
+      ],
+      "video": "/assests/RL-NPC/video.mp4"
+    }
+  },
+
+  "info": {
+    "period": "2024",
+    "duration": "2024.11",
+    "team": "2인 개발",
+    "teamDetail": "AI 학습 1명, Unity 연동 1명",
+    "role": "협동 NPC 학습 / Unity 연동",
+    "engine": "Unity 2022.3 LTS",
+    "platform": "PC"
+  },
+
+  "features": [
+    "PPO 기반 5vs5 멀티에이전트 강화학습",
+    "2단계 학습 파이프라인 (Self-Play → 협동 NPC)",
+    "3가지 플레이어 정책으로 다양한 스타일 대응",
+    "UDP/TCP 실시간 Python-Unity 연동"
+  ],
+
+  "techStack": [
+    { "category": "ML Framework", "value": "PyTorch 2.0" },
+    { "category": "Algorithm", "value": "PPO + GAE" },
+    { "category": "Game Engine", "value": "Unity 2022.3 LTS" },
+    { "category": "Language", "value": "Python 3.10, C#" },
+    { "category": "Network", "value": "UDP/TCP Socket" }
+  ],
+
+  "techStackGroups": [
+    {
+      "title": "ML Framework",
+      "icon": "🧠",
+      "items": [
+        { "name": "PyTorch 2.0", "desc": "신경망 학습", "abbr": "PT" },
+        { "name": "PPO + GAE", "desc": "정책 최적화", "abbr": "PPO" }
+      ]
+    },
+    {
+      "title": "게임 엔진",
+      "icon": "🎮",
+      "items": [
+        { "name": "Unity 2022.3", "desc": "3D 시각화", "abbr": "U" },
+        { "name": "C#", "desc": "클라이언트 로직", "abbr": "C#" }
+      ]
+    },
+    {
+      "title": "네트워크",
+      "icon": "🌐",
+      "items": [
+        { "name": "UDP Socket", "desc": "게임 상태 스트리밍", "abbr": "UDP" },
+        { "name": "TCP Socket", "desc": "플레이어 입력 전송", "abbr": "TCP" }
+      ]
+    },
+    {
+      "title": "AI 시스템",
+      "icon": "🤖",
+      "items": [
+        { "name": "Actor-Critic", "desc": "229→256→256→12", "abbr": "AC" },
+        { "name": "Multi-Agent", "desc": "5vs5 전투", "abbr": "MA" }
+      ]
+    }
+  ],
+
+  "sections": [
+    {
+      "title": "탱커 정책 시스템",
+      "content": "### 다양한 플레이어 스타일 대응\n- 고정된 플레이어 모델로는 특정 스타일에만 최적화되는 문제 발생\n- 3가지 탱커 정책 랜덤 선택 시스템 설계\n\n### 정책 구성\n- GoalTankPolicy (50%): 목표 지점 이동 (탐험형)\n- ModelTankPolicy (15%): 1단계 학습 행동 (숙련자)\n- ConditionalTankPolicy (35%): 상황 대응 (반응형)",
+      "codeFile": "train_coop_v11.py",
+      "code": "class GoalTankPolicy:\n    \"\"\"탐험형 플레이어: 목표 지점으로 이동\"\"\"\n    def __init__(self, env):\n        self.env = env\n        self.goal = None\n\n    def get_action(self, obs, unit):\n        if self.goal is None or self._reached_goal(unit):\n            self.goal = self._random_goal()\n        return self._move_toward_goal(unit)\n\nclass ModelTankPolicy:\n    \"\"\"숙련 플레이어: 학습된 모델 행동\"\"\"\n    def __init__(self, model_path):\n        self.model = torch.load(model_path)\n\n    def get_action(self, obs, unit):\n        with torch.no_grad():\n            return self.model(obs).argmax().item()\n\nclass ConditionalTankPolicy:\n    \"\"\"반응형 플레이어: 상황 기반 행동\"\"\"\n    def get_action(self, obs, unit):\n        nearby_enemies = self._get_nearby_enemies(unit)\n        if nearby_enemies:\n            return self._engage_enemy(unit, nearby_enemies[0])\n        return self._patrol(unit)"
+    },
+    {
+      "title": "협동 보상 설계",
+      "content": "### 문제\n- 승패 보상만으로는 NPC가 플레이어를 따라다니지 않음\n\n### 해결: 거리 비례 협동 보상\n- 0칸: +15 (매우 근접)\n- 2칸: +10\n- 4칸: +5\n- 5칸+: -5 (패널티)\n\n### 결과\n- 평균 탱커 거리: 10.0 → 2.91 감소\n- 협동 행동 학습 검증 완료",
+      "codeFile": "reward_system.py",
+      "code": "def calculate_coop_reward(npc_unit, tank_unit, action_result):\n    \"\"\"협동 보상 계산\"\"\"\n    reward = 0\n    \n    # 기본 전투 보상\n    if action_result.killed_enemy:\n        reward += 50\n    if action_result.damaged_enemy:\n        reward += 10\n    \n    # 탱커 거리 기반 협동 보상\n    distance = manhattan_distance(npc_unit.pos, tank_unit.pos)\n    \n    if distance <= 0:\n        reward += 15  # 매우 근접\n    elif distance <= 2:\n        reward += 10  # 근접\n    elif distance <= 4:\n        reward += 5   # 적정 거리\n    else:\n        reward -= 5   # 너무 멀리 떨어짐\n    \n    # 협공 보상 (탱커 근처에서 공격 시)\n    if action_result.attacked and distance <= 3:\n        reward += 20\n    \n    return reward"
+    },
+    {
+      "title": "Python-Unity 연동",
+      "content": "### 실시간 통신 아키텍처\n- 게임 상태 (Python→Unity): UDP - 속도 우선, 프레임 손실 허용\n- 플레이어 입력 (Unity→Python): TCP - 신뢰성 우선, 입력 손실 불가\n\n### 성능\n- 약 1ms 지연의 실시간 연동 구현\n- UDP 5005 포트: 상태 스트리밍\n- TCP 5006 포트: 입력 수신",
+      "codeFile": "UdpReceiver.cs",
+      "code": "public class UdpReceiver : MonoBehaviour\n{\n    private UdpClient udpClient;\n    private Thread receiveThread;\n    private GameState latestState;\n    \n    void Start()\n    {\n        udpClient = new UdpClient(5005);\n        receiveThread = new Thread(ReceiveData);\n        receiveThread.IsBackground = true;\n        receiveThread.Start();\n    }\n    \n    void ReceiveData()\n    {\n        IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0);\n        \n        while (true)\n        {\n            byte[] data = udpClient.Receive(ref remoteEP);\n            string json = Encoding.UTF8.GetString(data);\n            latestState = JsonUtility.FromJson<GameState>(json);\n        }\n    }\n    \n    void Update()\n    {\n        if (latestState != null)\n        {\n            gameViewer.UpdateView(latestState);\n        }\n    }\n}"
+    },
+    {
+      "title": "플레이어 입력 전송",
+      "content": "### TCP 기반 입력 처리\n- 신뢰성 있는 입력 전송 보장\n- 플레이어 탱커 유닛 제어\n- 실시간 행동 선택 및 전송\n\n### 입력 형식\n- action: 0-11 (이동 4방향 + 공격 8방향)\n- unit_id: 제어 대상 유닛",
+      "codeFile": "PlayerInputSender.cs",
+      "code": "public class PlayerInputSender : MonoBehaviour\n{\n    private TcpClient tcpClient;\n    private NetworkStream stream;\n    \n    void Start()\n    {\n        tcpClient = new TcpClient(\"127.0.0.1\", 5006);\n        stream = tcpClient.GetStream();\n    }\n    \n    void Update()\n    {\n        int action = GetPlayerAction();\n        if (action >= 0)\n        {\n            SendAction(action);\n        }\n    }\n    \n    int GetPlayerAction()\n    {\n        // 이동: WASD\n        if (Input.GetKeyDown(KeyCode.W)) return 0;\n        if (Input.GetKeyDown(KeyCode.S)) return 1;\n        if (Input.GetKeyDown(KeyCode.A)) return 2;\n        if (Input.GetKeyDown(KeyCode.D)) return 3;\n        \n        // 공격: 방향키 + 대각선\n        if (Input.GetKeyDown(KeyCode.UpArrow)) return 4;\n        if (Input.GetKeyDown(KeyCode.DownArrow)) return 5;\n        // ... 8방향 공격\n        \n        return -1;\n    }\n    \n    void SendAction(int action)\n    {\n        string json = $\"{{\\\"action\\\": {action}}}\";\n        byte[] data = Encoding.UTF8.GetBytes(json);\n        stream.Write(data, 0, data.Length);\n    }\n}"
+    },
+    {
+      "title": "PPO 에이전트",
+      "content": "### Actor-Critic 네트워크\n- 입력: 229차원 (유닛 상태, 주변 정보)\n- 히든: 256 → 256\n- 출력: 12개 행동 (이동 4 + 공격 8)\n\n### 학습 설정\n- Learning Rate: 3e-4\n- Gamma: 0.99\n- GAE Lambda: 0.95\n- Clip Range: 0.2",
+      "codeFile": "agent.py",
+      "code": "class ActorCritic(nn.Module):\n    def __init__(self, obs_dim=229, act_dim=12, hidden=256):\n        super().__init__()\n        \n        # Shared feature extractor\n        self.shared = nn.Sequential(\n            nn.Linear(obs_dim, hidden),\n            nn.ReLU(),\n            nn.Linear(hidden, hidden),\n            nn.ReLU()\n        )\n        \n        # Actor head (policy)\n        self.actor = nn.Linear(hidden, act_dim)\n        \n        # Critic head (value)\n        self.critic = nn.Linear(hidden, 1)\n    \n    def forward(self, obs):\n        features = self.shared(obs)\n        return self.actor(features), self.critic(features)\n    \n    def get_action(self, obs):\n        logits, value = self.forward(obs)\n        probs = F.softmax(logits, dim=-1)\n        dist = Categorical(probs)\n        action = dist.sample()\n        return action, dist.log_prob(action), value"
+    },
+    {
+      "title": "학습 결과",
+      "content": "### 1단계: Self-Play\n- 총 에피소드: 12,000\n- Team A 승률: 50.2%\n- Team B 승률: 49.4%\n- 학습 시간: 6.1시간\n\n### 2단계: 협동 학습\n- 총 에피소드: 12,750\n- 평균 보상: -1,297 → +1,739\n- 평균 탱커 거리: 10.0 → 2.91\n- 승률 균형: 47:52",
+      "codeFile": "training_log.py",
+      "code": "# 학습 결과 요약\ntraining_results = {\n    'stage1_selfplay': {\n        'total_episodes': 12000,\n        'team_a_winrate': 0.502,\n        'team_b_winrate': 0.494,\n        'training_time_hours': 6.1,\n        'avg_fps': 905\n    },\n    'stage2_coop': {\n        'total_episodes': 12750,\n        'reward_change': (-1297, 1739),\n        'avg_tank_distance': (10.0, 2.91),\n        'winrate_balance': (0.47, 0.52)\n    }\n}\n\n# 협동 행동 학습 검증\n# 평균 탱커 거리 71% 감소 (10.0 → 2.91)\n# NPC가 플레이어 탱커를 따라다니며 협동 전투 수행"
+    }
+  ],
+
+  "designPatterns": [
+    { "pattern": "Actor-Critic", "usage": "PPO 기반 정책 최적화와 가치 함수 학습" },
+    { "pattern": "Strategy", "usage": "GoalTankPolicy, ModelTankPolicy, ConditionalTankPolicy 전략 교체" },
+    { "pattern": "Observer", "usage": "UDP 상태 스트리밍, TCP 입력 수신 비동기 처리" },
+    { "pattern": "Singleton", "usage": "GameManager, NetworkManager 전역 관리" }
+  ],
+
+  "achievements": [
+    "협동 NPC 학습으로 평균 탱커 거리 71% 감소 (10.0 → 2.91)",
+    "UDP/TCP 분리 통신으로 약 1ms 지연 실시간 연동",
+    "3가지 플레이어 정책으로 다양한 스타일 대응"
+  ],
+
+  "lessonsLearned": [
+    "강화학습에서 보상 설계의 중요성 체감 (협동 보상)",
+    "UDP/TCP 프로토콜 선택 기준 학습 (속도 vs 신뢰성)",
+    "멀티에이전트 환경에서 Self-Play의 효과 검증",
+    "Python-Unity 연동 아키텍처 설계 경험"
+  ],
+
+  "links": {
+    "github": "https://github.com/junHyeong7083/rl-multiagent-combat-unity",
+    "demo": "",
+    "video": ""
+  }
+}

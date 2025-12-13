@@ -1,0 +1,156 @@
+{
+  "id": "sushi-master",
+  "title": "초밥의 법칙 (Sushi Master)",
+  "subtitle": "3D 플랫포머 / 스킬 게임",
+  "thumbnail": "/assests/Sushi/title.png",
+  "order": 3,
+  "periodDisplay": "2025.05 (2주)",
+  "gradient": ["#064e3b", "#10b981"],
+  "tags": ["Unity", "C#", "3D", "Game", "Team Project"],
+  "summary": "초밥을 안전하게 운반하는 플랫포머 게임입니다. 다양한 장애물을 피해 제한 시간 내에 목표 지점에 도달해야 합니다.",
+
+  "hero": {
+    "titleImage": "/assests/Sushi/title.png",
+    "stats": [
+      { "icon": "👥", "label": "4인 개발", "sub": "기획 2명, 그래픽 1명, 개발 1명" },
+      { "icon": "🎮", "label": "Unity 2024 (URP)", "sub": "URP Pipeline" },
+      { "icon": "⚡", "label": "7+ Systems", "sub": "Advanced Features" },
+      { "icon": "📅", "label": "2주", "sub": "제작 기간" }
+    ],
+    "media": {
+      "images": [
+        "/assests/Sushi/image1.png",
+        "/assests/Sushi/image2.png",
+        "/assests/Sushi/image3.png"
+      ],
+      "video": "/assests/Sushi/video.mp4"
+    }
+  },
+
+  "info": {
+    "period": "2024",
+    "duration": "2주",
+    "team": "4인 개발",
+    "teamDetail": "기획 2명, 그래픽 1명, 개발 1명",
+    "role": "클라이언트 개발",
+    "engine": "Unity 2024 (URP)",
+    "platform": "PC"
+  },
+
+  "features": [
+    "타이머 기반 긴장감 있는 플레이",
+    "다양한 패턴의 장애물 회피",
+    "실패 시 리플레이로 재미 요소 제공"
+  ],
+  "techStack": [
+    { "category": "엔진", "value": "Unity 2024" },
+    { "category": "렌더링", "value": "Universal Render Pipeline (URP)" },
+    { "category": "카메라", "value": "Cinemachine 3.1.3" },
+    { "category": "UI", "value": "TextMeshPro" },
+    { "category": "외부 API", "value": "Google Cloud Text-to-Speech" },
+    { "category": "데이터 저장", "value": "PlayerPrefs, JSON" }
+  ],
+
+  "techStackGroups": [
+    {
+      "title": "게임 엔진",
+      "icon": "🎮",
+      "items": [
+        { "name": "Unity 2024", "desc": "최신 LTS 버전", "abbr": "U" },
+        { "name": "Universal Render Pipeline", "desc": "고성능 렌더링", "abbr": "URP" }
+      ]
+    },
+    {
+      "title": "카메라 & UI",
+      "icon": "📹",
+      "items": [
+        { "name": "Cinemachine 3.1.3", "desc": "카메라 시스템 & 컷신", "abbr": "CM" },
+        { "name": "TextMeshPro", "desc": "고품질 텍스트 렌더링", "abbr": "TMP" }
+      ]
+    },
+    {
+      "title": "외부 API",
+      "icon": "☁️",
+      "items": [
+        { "name": "Google Cloud TTS", "desc": "실시간 음성 합성", "abbr": "G" }
+      ]
+    },
+    {
+      "title": "데이터 관리",
+      "icon": "💾",
+      "items": [
+        { "name": "PlayerPrefs", "desc": "로컬 데이터 저장", "abbr": "PP" },
+        { "name": "JSON", "desc": "구조화된 데이터", "abbr": "{ }" }
+      ]
+    }
+  ],
+
+  "sections": [
+    {
+      "title": "플레이어 시스템",
+      "content": "### 이동 및 점프\n- Rigidbody 기반 물리 이동\n- 카메라 기준 WASD 방향 이동\n- ForceMode.Impulse를 활용한 점프 구현\n\n### 충돌 판정\n- ContactPoint 기반 정밀한 착지 감지\n- 법선 벡터(Normal)로 착지 각도 판별\n- 태그 시스템으로 오브젝트별 상호작용 분기",
+      "codeFile": "PlayerMovement.cs",
+      "code": "[RequireComponent(typeof(Rigidbody))]\npublic class PlayerMovement : MonoBehaviour\n{\n    [SerializeField] float moveSpeed = 8f;\n    [SerializeField] float jumpForce = 8f;\n\n    private Rigidbody rb;\n    private Vector3 moveDir;\n    private bool isGrounded = false;\n\n    private void Update()\n    {\n        float h = Input.GetAxisRaw(\"Horizontal\");\n        float v = Input.GetAxisRaw(\"Vertical\");\n\n        Vector3 camF = Vector3.Scale(\n            Camera.main.transform.forward, \n            new Vector3(1, 0, 1)).normalized;\n        Vector3 camR = Camera.main.transform.right;\n\n        moveDir = (camF * v + camR * h).normalized;\n\n        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)\n            jumpRequested = true;\n    }\n\n    private void FixedUpdate()\n    {\n        Vector3 force = moveDir * moveSpeed;\n        rb.AddForce(isGrounded ? force : force * 0.5f, \n                    ForceMode.Force);\n\n        if (jumpRequested)\n        {\n            rb.AddForce(Vector3.up * jumpForce, \n                       ForceMode.Impulse);\n            isGrounded = false;\n            jumpRequested = false;\n        }\n    }\n}"
+    },
+    {
+      "title": "장애물 패턴",
+      "content": "### Falling Pattern (낙하 블록)\n- 플레이어 접촉 시 일정 시간 후 낙하\n- Rigidbody useGravity 동적 제어\n- 페이드 아웃 후 원위치 복귀\n\n### Moving Pattern (이동 장애물)\n- WayPoint 기반 경로 이동\n- Loop / PingPong 모드 지원\n\n### Throw Pattern (던지기 장애물)\n- 베지어 곡선(Bezier Curve) 기반 궤적\n- 3점 제어점으로 자연스러운 곡선 구현",
+      "codeFile": "ThrowPattern.cs",
+      "code": "// 베지어 곡선 기반 플레이어 이동\nprivate IEnumerator MoveAlongCurve(Rigidbody playerRb)\n{\n    Vector3 startPos = playerRb.position;\n    Vector3 controlPos = pointTransform.position;\n    Vector3 endPos = palletTownTransform.position;\n\n    float elapsed = 0f;\n\n    while (elapsed < throwDuration)\n    {\n        float t = elapsed / throwDuration;\n\n        // 2차 베지어 곡선 공식\n        Vector3 bezierPos = \n            Mathf.Pow(1 - t, 2) * startPos +\n            2 * (1 - t) * t * controlPos +\n            Mathf.Pow(t, 2) * endPos;\n\n        playerRb.MovePosition(bezierPos);\n        elapsed += Time.fixedDeltaTime;\n        yield return new WaitForFixedUpdate();\n    }\n\n    playerRb.MovePosition(endPos);\n}"
+    },
+    {
+      "title": "리플레이 시스템",
+      "content": "### ReplayRecorder\n- FixedUpdate에서 매 프레임 상태 기록\n- Queue 자료구조로 최근 1초만 유지\n- 메모리 효율적인 순환 버퍼 방식\n\n### ReplayPlayer\n- Time.timeScale 0.5배속 슬로우 모션\n- Post Processing Volume으로 회색 필터\n- CinemachineBrain 비활성화 후 수동 제어",
+      "codeFile": "ReplayRecorder.cs",
+      "code": "[System.Serializable]\npublic struct ReplayFrame\n{\n    public Vector3 playerPosition;\n    public Quaternion playerRotation;\n    public Vector3 cameraPosition;\n    public Quaternion cameraRotation;\n}\n\npublic class ReplayRecorder : MonoBehaviour\n{\n    public float duration = 1f;\n    public float interval = 0.02f;\n\n    private Queue<ReplayFrame> frameQueue \n        = new Queue<ReplayFrame>();\n\n    void FixedUpdate()\n    {\n        timer += Time.fixedDeltaTime;\n        if (timer >= interval)\n        {\n            timer = 0f;\n            frameQueue.Enqueue(new ReplayFrame\n            {\n                playerPosition = Player.position,\n                playerRotation = Player.rotation,\n                cameraPosition = Camera.position,\n                cameraRotation = Camera.rotation\n            });\n\n            // 오래된 프레임 자동 삭제\n            while (frameQueue.Count > duration / interval)\n                frameQueue.Dequeue();\n        }\n    }\n}"
+    },
+    {
+      "title": "컷신 시스템",
+      "content": "### 오프닝 컷신\n- 최초 1회만 자동 재생 (PlayerPrefs 저장)\n- 이미지 페이드 인/아웃 효과\n- 타이핑 애니메이션 (글자별 순차 표시)\n\n### 카메라 연출\n- Cinemachine Priority 기반 카메라 전환\n- Quaternion.Slerp로 부드러운 회전 보간",
+      "codeFile": "ReplayPlayer.cs",
+      "code": "public class ReplayPlayer : MonoBehaviour\n{\n    [SerializeField] private Volume deathVolume;\n    [SerializeField] private float grayEffectDuration = 1f;\n    private CinemachineBrain brain;\n\n    public void PlayReplay(System.Action onComplete)\n    {\n        StartCoroutine(ActivateGrayEffect());\n        StartCoroutine(ReplayCoroutine(onComplete));\n    }\n\n    private IEnumerator ReplayCoroutine(Action onComplete)\n    {\n        Time.timeScale = replayTime; // 0.5배속\n        brain.enabled = false;\n\n        var frames = recorder.FrameQueue.ToArray();\n        foreach (var frame in frames)\n        {\n            Player.position = frame.playerPosition;\n            Camera.position = frame.cameraPosition;\n            yield return new WaitForSeconds(\n                Time.fixedDeltaTime);\n        }\n\n        brain.enabled = true;\n        onComplete?.Invoke();\n    }\n}"
+    },
+    {
+      "title": "사운드 시스템",
+      "content": "### SoundManager\n- Singleton 패턴으로 전역 관리\n- DontDestroyOnLoad로 씬 전환 시 유지\n\n### BGM 관리\n- 씬별 자동 BGM 재생\n- DataManager와 연동된 볼륨 조절\n\n### SFX 관리\n- Dictionary 기반 효과음 관리\n- 동적 AudioSource 생성으로 중복 재생 지원",
+      "codeFile": "SoundManager.cs",
+      "code": "public class SoundManager : MonoBehaviour\n{\n    private static SoundManager instance;\n    public static SoundManager Instance { get {...} }\n\n    private Dictionary<string, AudioClip> audioClipsDic \n        = new Dictionary<string, AudioClip>();\n\n    private void Awake()\n    {\n        if (Instance != this) {\n            Destroy(gameObject);\n            return;\n        }\n        DontDestroyOnLoad(gameObject);\n\n        foreach (AudioClip clip in sfxAudioClips)\n            audioClipsDic[clip.name] = clip;\n\n        SceneManager.sceneLoaded += OnSceneLoaded;\n    }\n\n    public void PlaySFXSound(string name)\n    {\n        if (!audioClipsDic.ContainsKey(name)) return;\n\n        GameObject sfxObj = new GameObject($\"SFX_{name}\");\n        AudioSource source = sfxObj.AddComponent<AudioSource>();\n        source.clip = audioClipsDic[name];\n        source.Play();\n\n        Destroy(sfxObj, audioClipsDic[name].length);\n    }\n}"
+    },
+    {
+      "title": "TTS 음성",
+      "content": "### Google Cloud TTS 연동\n- REST API 호출로 음성 합성\n- 한국어 Wavenet 음성 지원 (6종류 랜덤)\n- Base64 디코딩 후 AudioClip 변환\n\n### 사망 코멘트\n- JSON 데이터에서 랜덤 코멘트 선택\n- TTS로 실시간 음성 생성",
+      "codeFile": "GoogleTTSManager.cs",
+      "code": "public class GoogleTTSManager : MonoBehaviour\n{\n    public static GoogleTTSManager Instance;\n    private string[] voiceNames = { \n        \"ko-KR-Wavenet-A\", \"ko-KR-Wavenet-B\", \n        \"ko-KR-Wavenet-C\", \"ko-KR-Wavenet-D\" \n    };\n\n    public void Speak(string text)\n    {\n        StartCoroutine(RequestTTS(text));\n    }\n\n    private IEnumerator RequestTTS(string text)\n    {\n        string url = \"https://texttospeech.googleapis.com\" +\n                     \"/v1/text:synthesize?key=\" + apiKey;\n\n        string randomVoice = voiceNames[\n            Random.Range(0, voiceNames.Length)];\n\n        string json = \"{\\\"input\\\":{\\\"text\\\":\\\"\" + text + \n            \"\\\"},\\\"voice\\\":{\\\"languageCode\\\":\\\"ko-KR\\\",\" +\n            \"\\\"name\\\":\\\"\" + randomVoice + \"\\\"},\" +\n            \"\\\"audioConfig\\\":{\\\"audioEncoding\\\":\\\"MP3\\\"}}\";\n\n        using (UnityWebRequest www = \n               new UnityWebRequest(url, \"POST\"))\n        {\n            www.uploadHandler = \n                new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));\n            www.downloadHandler = new DownloadHandlerBuffer();\n            www.SetRequestHeader(\"Content-Type\", \n                                 \"application/json\");\n\n            yield return www.SendWebRequest();\n\n            // Base64 디코딩 후 재생\n            string audioContent = JsonUtility\n                .FromJson<TTSResponse>(www.downloadHandler.text)\n                .audioContent;\n            byte[] audioBytes = \n                System.Convert.FromBase64String(audioContent);\n            StartCoroutine(PlayAudioClip(audioBytes));\n        }\n    }\n}"
+    },
+    {
+      "title": "상태 관리",
+      "content": "### GameManager\n- 게임 흐름 제어 (Timer, GameOver, GameClear)\n- 타이머 시스템 (블록별 리셋)\n\n### UIManager\n- GameState enum으로 상태 전환\n- 델리게이트 이벤트로 느슨한 결합\n- Time.timeScale 제어로 일시정지 구현",
+      "codeFile": "GameManager.cs",
+      "code": "public class GameManager : MonoBehaviour\n{\n    public static GameManager instance;\n    public float Timer = 3f;\n\n    public void TimerInit() \n    {\n        Timer = TimerOffset;\n        timerTMP.text = Timer.ToString(\"F2\");\n        isTimerPaused = false;\n    }\n\n    public void TimerSub()\n    {\n        if (isTimerPaused) return;\n        Timer -= Time.deltaTime;\n        if (Timer < 0f) {\n            Timer = 0f;\n            GameOver();\n        }\n        timerTMP.text = Timer.ToString(\"F2\");\n    }\n\n    public void GameClear()\n    {\n        if (isCleared) return;\n        isCleared = true; \n        TimerStop();\n        UIManager.Instance.OnGameStateChanged(\n            GameState.Clear, DataManager.Instance.deathCount);\n    }\n\n    public void GameOver()\n    {\n        if (isOverlapDie || isCleared) return; \n        isOverlapDie = true;\n        UIManager.Instance.OnGameStateChanged(GameState.Replay);\n        deathCommentUI.ShowComment();\n        SoundManager.Instance.PlaySFXSound(\n            $\"fail{Random.Range(1,5)}Sfx\");\n    }\n}"
+    }
+  ],
+  "designPatterns": [
+    { "pattern": "Singleton", "usage": "GameManager, SoundManager, UIManager, ReplayManager 등 전역 상태 관리" },
+    { "pattern": "Observer", "usage": "OnReplayStateChanged, OnGameStateChanged 이벤트로 느슨한 결합" },
+    { "pattern": "State", "usage": "GameState enum으로 게임 흐름 제어 (Gameplay, Replay, Clear)" },
+    { "pattern": "Object Pool", "usage": "ReplayRecorder Queue로 메모리 효율화 (순환 버퍼)" }
+  ],
+  "achievements": [
+    "베지어 곡선을 활용한 자연스러운 투사체 궤적 구현",
+    "Queue 기반 메모리 효율적인 리플레이 시스템",
+    "Google Cloud API 연동으로 동적 음성 생성"
+  ],
+
+  "lessonsLearned": [
+    "외부 API 연동 시 비동기 처리와 예외 처리의 중요성",
+    "Cinemachine을 활용한 카메라 연출 기법 습득",
+    "게임 루프와 상태 관리 패턴에 대한 이해 심화",
+    "2주라는 짧은 기간 내 MVP 완성을 위한 우선순위 설정"
+  ],
+
+  "links": {
+    "github": "https://github.com/junHyeong7083/ProjectWorkShop-Sushi",
+    "demo": "",
+    "video": "https://youtu.be/DfqDCFozVDY"
+  }
+}

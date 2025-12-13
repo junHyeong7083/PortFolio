@@ -1,0 +1,146 @@
+{
+  "id": "history",
+  "title": "History",
+  "subtitle": "모바일 액션 회피 게임",
+  "thumbnail": "/assests/History/title.png",
+  "order": 1,
+  "periodDisplay": "2023.08 ~ 12월",
+  "gradient": ["#0a1612", "#10b981"],
+  "tags": ["Unity", "C#", "2D", "Mobile", "First Project"],
+  "summary": "터치 기반 모바일 액션 회피 게임. 보스의 다양한 패턴을 피하며 멀티터치를 통해 라인을 그어 반격하는 게임플레이. 첫 번째 완성 프로젝트로 게임 개발의 전반적인 흐름을 학습.",
+
+  "hero": {
+    "titleImage": "/assests/History/title.png",
+    "stats": [
+      { "icon": "👥", "label": "1인 개발", "sub": "기획, 개발 전담" },
+      { "icon": "🎮", "label": "Unity 2021.3", "sub": "LTS 버전" },
+      { "icon": "⚡", "label": "5+ Systems", "sub": "Advanced Features" },
+      { "icon": "📅", "label": "3개월", "sub": "첫 프로젝트" }
+    ],
+    "media": {
+      "images": [
+        "/assests/History/image1.png",
+        "/assests/History/image2.png",
+        "/assests/History/image3.png"
+      ],
+      "video": "/assests/History/video.mp4"
+    }
+  },
+
+  "info": {
+    "period": "2023",
+    "duration": "첫 프로젝트",
+    "team": "7인 개발",
+    "teamDetail": "기획 1, 개발 1, 그래픽 5",
+    "role": "전체 개발",
+    "engine": "Unity 2021.3 LTS",
+    "platform": "Mobile (Android)"
+  },
+
+  "features": [
+    "터치 이동 + 라인 드로잉 공격",
+    "3개 스테이지 보스 + 무한 모드",
+    "Spine 2D 애니메이션 연동"
+  ],
+
+  "techStack": [
+    { "category": "엔진", "value": "Unity 2021.3 LTS" },
+    { "category": "언어", "value": "C#" },
+    { "category": "애니메이션", "value": "Spine 2D" },
+    { "category": "데이터", "value": "PlayerPrefs" }
+  ],
+
+  "techStackGroups": [
+    {
+      "title": "게임 엔진",
+      "icon": "🎮",
+      "items": [
+        { "name": "Unity 2021.3", "desc": "LTS 버전", "abbr": "U" },
+        { "name": "Spine Runtime", "desc": "2D 애니메이션", "abbr": "SP" }
+      ]
+    },
+    {
+      "title": "입력 시스템",
+      "icon": "📱",
+      "items": [
+        { "name": "Touch Input", "desc": "멀티 터치 처리", "abbr": "TI" },
+        { "name": "LineRenderer", "desc": "공격 라인 시각화", "abbr": "LR" }
+      ]
+    },
+    {
+      "title": "패턴 시스템",
+      "icon": "⚡",
+      "items": [
+        { "name": "Coroutine", "desc": "패턴 순차 실행", "abbr": "CO" },
+        { "name": "Prefab", "desc": "공격 패턴 재사용", "abbr": "PF" }
+      ]
+    },
+    {
+      "title": "데이터 관리",
+      "icon": "💾",
+      "items": [
+        { "name": "PlayerPrefs", "desc": "진행 상황 저장", "abbr": "PP" },
+        { "name": "Singleton", "desc": "매니저 패턴", "abbr": "SG" }
+      ]
+    }
+  ],
+
+  "sections": [
+    {
+      "title": "매니저 시스템",
+      "content": "### Singleton 패턴 적용\n- SoundManager: BGM/SFX 전역 관리\n- PatternManager: 공격 패턴 프리팹 생성\n- ParticleManager: 파티클 이펙트 관리\n\n### 구현 목적\n- 씬 전환 시에도 리소스 유지\n- 어디서든 접근 가능한 전역 관리자",
+      "codeFile": "SoundManager.cs",
+      "code": "public class SoundManager : MonoBehaviour\n{\n    public static SoundManager Instance { get; private set; }\n\n    [SerializeField] AudioSource bgmSource;\n    [SerializeField] AudioSource sfxSource;\n\n    private void Awake()\n    {\n        if (Instance == null)\n        {\n            Instance = this;\n            DontDestroyOnLoad(gameObject);\n        }\n        else\n        {\n            Destroy(gameObject);\n        }\n    }\n\n    public void PlayBGM(AudioClip clip)\n    {\n        bgmSource.clip = clip;\n        bgmSource.Play();\n    }\n\n    public void PlaySFX(AudioClip clip)\n    {\n        sfxSource.PlayOneShot(clip);\n    }\n}"
+    },
+    {
+      "title": "터치 입력",
+      "content": "### 멀티 터치 처리\n- Touch 1: 플레이어 캐릭터 드래그 이동\n- Touch 2: 공격 라인 드로잉 (LineRenderer)\n\n### 상태 관리\n- isDie: 사망 상태 플래그\n- atkState: 공격 가능 상태",
+      "codeFile": "PlayerController.cs",
+      "code": "public class PlayerController : MonoBehaviour\n{\n    public static int Hp;\n    public static bool isDie;\n    public static bool atkState;\n\n    void Update()\n    {\n        if (isDie) return;\n\n        // 첫 번째 터치: 이동\n        if (Input.touchCount > 0)\n        {\n            Touch touch = Input.GetTouch(0);\n            Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);\n            touchPos.z = 0;\n            transform.position = Vector3.Lerp(\n                transform.position, touchPos, moveSpeed * Time.deltaTime);\n        }\n\n        // 두 번째 터치: 공격 라인\n        if (Input.touchCount > 1 && atkState)\n        {\n            Touch attackTouch = Input.GetTouch(1);\n            DrawAttackLine(attackTouch);\n        }\n    }\n\n    public void DecreaseHp(int damage)\n    {\n        Hp -= damage;\n        if (Hp <= 0) isDie = true;\n    }\n}"
+    },
+    {
+      "title": "보스 패턴",
+      "content": "### 코루틴 기반 패턴 시스템\n- Stage1 사무라이: 9개 패턴 + 5개 오버랩\n- Stage2 바이킹: 8개 패턴 + 특수 패턴\n- Stage3 나이트: 다수의 복합 패턴\n\n### 구현 방식\n- 각 패턴을 프리팹으로 제작\n- PatternManager에서 생성/관리",
+      "codeFile": "Stage1_Boss.cs",
+      "code": "public class Stage1_Boss : MonoBehaviour\n{\n    [SerializeField] GameObject[] patterns;\n    private int currentPhase = 0;\n\n    IEnumerator BossRoutine()\n    {\n        while (!isDead)\n        {\n            yield return StartCoroutine(Phase1Pattern());\n            yield return StartCoroutine(Phase2Pattern());\n            yield return StartCoroutine(Phase3Pattern());\n        }\n    }\n\n    IEnumerator Phase1Pattern()\n    {\n        // 패턴 1: 직선 공격\n        PatternManager.Instance.SpawnPattern(patterns[0]);\n        yield return new WaitForSeconds(2f);\n\n        // 패턴 2: 부채꼴 공격\n        PatternManager.Instance.SpawnPattern(patterns[1]);\n        yield return new WaitForSeconds(1.5f);\n\n        // 패턴 3: 원형 공격\n        for (int i = 0; i < 8; i++)\n        {\n            float angle = i * 45f;\n            SpawnCircularAttack(angle);\n        }\n        yield return new WaitForSeconds(3f);\n    }\n}"
+    },
+    {
+      "title": "데미지 시스템",
+      "content": "### 충돌 판정 구조\n- Parent Collider: 보스 본체\n- Child Collider: 공격 오브젝트\n- Damagable.cs: 충돌 시 데미지 전달\n\n### 처리 흐름\n1. 공격 오브젝트가 플레이어와 충돌\n2. Damagable에서 충돌 감지\n3. PlayerController.DecreaseHp() 호출",
+      "codeFile": "Damagable.cs",
+      "code": "public class Damagable : MonoBehaviour\n{\n    [SerializeField] int damage = 1;\n    [SerializeField] bool destroyOnHit = true;\n\n    private void OnTriggerEnter2D(Collider2D other)\n    {\n        if (other.CompareTag(\"Player\"))\n        {\n            PlayerController player = other.GetComponent<PlayerController>();\n            if (player != null)\n            {\n                player.DecreaseHp(damage);\n                \n                // 피격 이펙트\n                ParticleManager.Instance.PlayHitEffect(\n                    transform.position);\n                \n                // 피격 사운드\n                SoundManager.Instance.PlaySFX(hitSound);\n\n                if (destroyOnHit)\n                    Destroy(gameObject);\n            }\n        }\n    }\n}"
+    },
+    {
+      "title": "Spine 애니메이션",
+      "content": "### 외부 툴 연동\n- Spine 2D로 제작된 캐릭터 애니메이션\n- Unity Spine Runtime 사용\n- 보스별 다양한 공격 모션\n\n### 적용 대상\n- 플레이어 캐릭터\n- 3종 보스 (사무라이, 바이킹, 나이트)\n- 각 보스별 Idle, Attack, Hit, Die 상태",
+      "codeFile": "SpineAnimController.cs",
+      "code": "using Spine.Unity;\n\npublic class SpineAnimController : MonoBehaviour\n{\n    [SerializeField] SkeletonAnimation skeletonAnim;\n\n    public void PlayAnimation(string animName, bool loop = false)\n    {\n        skeletonAnim.AnimationState.SetAnimation(0, animName, loop);\n    }\n\n    public void PlayAttackAnimation(int patternIndex)\n    {\n        string animName = $\"attack_{patternIndex}\";\n        PlayAnimation(animName, false);\n    }\n\n    public void OnAnimationComplete(string animName)\n    {\n        if (animName.Contains(\"attack\"))\n        {\n            PlayAnimation(\"idle\", true);\n        }\n    }\n}"
+    }
+  ],
+
+  "designPatterns": [
+    { "pattern": "Singleton", "usage": "SoundManager, PatternManager, ParticleManager 전역 관리" },
+    { "pattern": "Coroutine", "usage": "보스 패턴 순차 실행, 타이밍 제어" },
+    { "pattern": "Prefab", "usage": "30+ 공격 패턴 재사용 가능한 프리팹화" },
+    { "pattern": "Component", "usage": "Damagable, SpineAnimController 모듈화" }
+  ],
+
+  "achievements": [
+    "첫 프로젝트로 게임의 완성까지 달성",
+    "Spine 외부 애니메이션 툴 연동",
+    "3개 보스 + 30개 이상 공격 패턴 구현"
+  ],
+
+  "lessonsLearned": [
+    "거대한 클래스의 문제점 체감 (3,000줄+)",
+    "Static 변수 과다 사용의 추적 어려움 인식",
+    "하드코딩 대신 데이터 분리의 필요성 학습",
+    "상속과 인터페이스 활용의 중요성 깨달음"
+  ],
+
+  "links": {
+    "github": "https://github.com/junHyeong7083/GameProject-History-",
+    "demo": "",
+    "video": "https://youtu.be/SH1VeSWx4ZM"
+  }
+}
