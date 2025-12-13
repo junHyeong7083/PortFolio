@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 const ErrorPage: NextPage = () => {
@@ -9,11 +8,12 @@ const ErrorPage: NextPage = () => {
   return (
     <>
       <div className="flex min-h-screen min-w-full flex-col justify-center bg-[#fafdfe]">
-        <Image
+        <img
           src="/assests/404.svg"
-          width="800"
-          height="400"
+          width={800}
+          height={400}
           alt="404 illustration"
+          className="mx-auto"
         />
 
         <div className="flex w-full flex-col items-center justify-center">

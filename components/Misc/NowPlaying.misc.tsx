@@ -1,7 +1,6 @@
 import type { NextComponentType } from "next";
 import type { NowPlayingSong } from "../../@types/now-playing-song.type";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import useSWR from "swr";
@@ -13,10 +12,10 @@ const SpotifyCard: NextComponentType = () => {
   return (
     <>
       <div className="font-sen mb-8 flex max-w-full flex-row items-center gap-x-2 rounded-md text-center text-lg text-gray-300">
-        <Image
+        <img
           src="/assests/spotify.svg"
-          width="40"
-          height="40"
+          width={40}
+          height={40}
           alt="spotify icon"
         />
         {data?.isPlaying ? (

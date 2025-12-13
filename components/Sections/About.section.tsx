@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineArrowNarrowRight } from "../Misc/Icons.collection";
 import { Profile } from "../../@types/portfolio.types";
@@ -56,10 +55,10 @@ const About = ({ profile }: AboutProps) => {
       </div>
 
       <div className="hidden custom:block">
-        <Image
-          src={profile.avatar || "/assets/avatar.png"}
-          width="112"
-          height="112"
+        <img
+          src={profile.avatar || "/assests/avatar.png"}
+          width={112}
+          height={112}
           className="rounded-full"
           alt="avatar"
         />
