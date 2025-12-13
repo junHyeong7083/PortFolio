@@ -209,7 +209,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
                   <div className="aspect-video bg-gray-800/50 rounded-xl overflow-hidden">
                     <img
-                      src={(portfolio as any).hero?.titleImage || portfolio.thumbnail}
+                      src={`${router.basePath}${(portfolio as any).hero?.titleImage || portfolio.thumbnail}`}
                       alt={portfolio.title}
                       className="w-full h-full object-cover"
                       onError={(e) => {
@@ -524,7 +524,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                 <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all hover:-translate-y-2 w-full max-w-sm">
                   <div className="aspect-video bg-gray-100 overflow-hidden">
                     <img
-                      src={imgSrc}
+                      src={`${router.basePath}${imgSrc}`}
                       alt={`스크린샷 ${idx + 1}`}
                       className="w-full h-full object-cover"
                       onError={(e) => {

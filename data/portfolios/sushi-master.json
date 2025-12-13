@@ -33,8 +33,8 @@
     "team": "4인 개발",
     "teamDetail": "기획 2명, 그래픽 1명, 개발 1명",
     "role": "클라이언트 개발",
-    "engine": "Unity 2024 (URP)",
-    "platform": "PC"
+    "engine": "Unity 6 (URP)",
+    "platform": "Windows PC"
   },
 
   "features": [

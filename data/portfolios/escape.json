@@ -33,8 +33,8 @@
     "team": "7인 개발",
     "teamDetail": "기획 1명, 개발 1명, 그래픽 5명",
     "role": "게임 개발 총괄",
-    "engine": "Unity 2D",
-    "platform": "PC"
+    "engine": "Unity 6",
+    "platform": "Windows PC"
   },
 
   "features": [
