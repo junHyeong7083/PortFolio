@@ -206,8 +206,8 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
 
               {/* Game Preview */}
               <div className="hidden md:block">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
-                  <div className="aspect-video bg-gray-800/50 rounded-xl overflow-hidden">
+                <div className={`bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 ${portfolio.platform?.includes("Mobile") ? "max-w-xs mx-auto" : ""}`}>
+                  <div className={`${portfolio.platform?.includes("Mobile") ? "aspect-[9/16]" : "aspect-video"} bg-gray-800/50 rounded-xl overflow-hidden`}>
                     <img
                       src={`${router.basePath}${(portfolio as any).hero?.titleImage || portfolio.thumbnail}`}
                       alt={portfolio.title}
@@ -518,30 +518,58 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
               <p className="text-gray-600 mt-4">게임 플레이 스크린샷과 영상</p>
             </div>
 
-            {/* Screenshots - 3개 가운데 정렬 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center mb-8">
-              {(portfolio as any).hero?.media?.images?.map((imgSrc: string, idx: number) => (
-                <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all hover:-translate-y-2 w-full max-w-sm">
-                  <div className="aspect-video bg-gray-100 overflow-hidden">
-                    <img
-                      src={`${router.basePath}${imgSrc}`}
-                      alt={`스크린샷 ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                      }}
-                    />
-                    <div className="hidden text-center text-gray-400 h-full flex items-center justify-center">
-                      <div>
-                        <span className="text-4xl block mb-2">🖼️</span>
-                        <p className="font-medium">스크린샷 {idx + 1}</p>
+            {/* Screenshots - 모바일 게임은 세로형, 나머지는 가로형 */}
+            {portfolio.platform?.includes("Mobile") ? (
+              // 모바일 게임 (세로형 이미지) - History
+              <div className="flex flex-wrap justify-center gap-6 mb-8">
+                {(portfolio as any).hero?.media?.images?.map((imgSrc: string, idx: number) => (
+                  <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all hover:-translate-y-2 w-48 sm:w-56">
+                    <div className="aspect-[9/16] bg-gray-100 overflow-hidden">
+                      <img
+                        src={`${router.basePath}${imgSrc}`}
+                        alt={`스크린샷 ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                        }}
+                      />
+                      <div className="hidden text-center text-gray-400 h-full flex items-center justify-center">
+                        <div>
+                          <span className="text-4xl block mb-2">🖼️</span>
+                          <p className="font-medium">스크린샷 {idx + 1}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              // PC 게임 (가로형 이미지)
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center mb-8">
+                {(portfolio as any).hero?.media?.images?.map((imgSrc: string, idx: number) => (
+                  <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all hover:-translate-y-2 w-full max-w-sm">
+                    <div className="aspect-video bg-gray-100 overflow-hidden">
+                      <img
+                        src={`${router.basePath}${imgSrc}`}
+                        alt={`스크린샷 ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                        }}
+                      />
+                      <div className="hidden text-center text-gray-400 h-full flex items-center justify-center">
+                        <div>
+                          <span className="text-4xl block mb-2">🖼️</span>
+                          <p className="font-medium">스크린샷 {idx + 1}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* YouTube Video - 가운데 정렬 */}
             {portfolio.links.video && (
