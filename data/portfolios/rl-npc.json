@@ -4,7 +4,7 @@
   "subtitle": "유저 적응형 AI 전투 시스템",
   "thumbnail": "/assets/portfolios/RL-NPC/title.png",
   "order": 4,
-  "periodDisplay": "2024.11",
+  "periodDisplay": "2025.10~2025.11",
   "gradient": ["#0a1612", "#059669"],
   "tags": ["Python", "PyTorch", "Unity", "C#", "Reinforcement Learning"],
   "summary": "PPO 기반 5vs5 멀티에이전트 강화학습 시스템. 2단계 학습 파이프라인으로 다양한 플레이어 스타일에 적응하는 협동 NPC 구현. Python-Unity 실시간 연동.",
