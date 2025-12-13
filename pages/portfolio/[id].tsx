@@ -279,7 +279,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-500 flex-shrink-0">✓</span>
-                    <span><strong>기간:</strong> {(portfolio as any).info?.duration || portfolio.duration}</span>
+                    <span><strong>기간:</strong> {(portfolio as any).info?.duration || (portfolio as any).duration || portfolio.periodDisplay}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-500 flex-shrink-0">✓</span>
