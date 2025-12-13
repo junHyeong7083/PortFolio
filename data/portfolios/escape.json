@@ -2,7 +2,7 @@
   "id": "escape",
   "title": "Escape",
   "subtitle": "뱀파이어 서바이벌 게임",
-  "thumbnail": "/assests/Escape/title.png",
+  "thumbnail": "/assets/portfolios/Escape/title.png",
   "order": 2,
   "periodDisplay": "2024.03 ~ 06월",
   "gradient": ["#0a1612", "#34d399"],
@@ -10,7 +10,7 @@
   "summary": "5분간 몰려오는 몬스터를 처치하며 생존하는 로그라이크 서바이벌 게임. 3종 캐릭터, 각 4개 고유 스킬, 오브젝트 풀링으로 60fps 유지.",
 
   "hero": {
-    "titleImage": "/assests/Escape/title.png",
+    "titleImage": "/assets/portfolios/Escape/title.png",
     "stats": [
       { "icon": "👥", "label": "7인 개발", "sub": "기획 1, 개발 1, 그래픽 5" },
       { "icon": "🎮", "label": "Unity 2022", "sub": "2D 최적화" },
@@ -19,11 +19,11 @@
     ],
     "media": {
       "images": [
-        "/assests/Escape/image1.png",
-        "/assests/Escape/image2.png",
-        "/assests/Escape/image3.png"
+        "/assets/portfolios/Escape/image1.png",
+        "/assets/portfolios/Escape/image2.png",
+        "/assets/portfolios/Escape/image3.png"
       ],
-      "video": "/assests/Escape/video.mp4"
+      "video": "/assets/portfolios/Escape/video.mp4"
     }
   },
 

@@ -2,7 +2,7 @@
   "id": "history",
   "title": "History",
   "subtitle": "모바일 액션 회피 게임",
-  "thumbnail": "/assests/History/title.png",
+  "thumbnail": "/assets/portfolios/History/title.png",
   "order": 1,
   "periodDisplay": "2023.08 ~ 12월",
   "gradient": ["#0a1612", "#10b981"],
@@ -10,7 +10,7 @@
   "summary": "터치 기반 모바일 액션 회피 게임. 보스의 다양한 패턴을 피하며 멀티터치를 통해 라인을 그어 반격하는 게임플레이. 첫 번째 완성 프로젝트로 게임 개발의 전반적인 흐름을 학습.",
 
   "hero": {
-    "titleImage": "/assests/History/title.png",
+    "titleImage": "/assets/portfolios/History/title.png",
     "stats": [
       { "icon": "👥", "label": "1인 개발", "sub": "기획, 개발 전담" },
       { "icon": "🎮", "label": "Unity 2021.3", "sub": "LTS 버전" },
@@ -19,11 +19,11 @@
     ],
     "media": {
       "images": [
-        "/assests/History/image1.png",
-        "/assests/History/image2.png",
-        "/assests/History/image3.png"
+        "/assets/portfolios/History/image1.png",
+        "/assets/portfolios/History/image2.png",
+        "/assets/portfolios/History/image3.png"
       ],
-      "video": "/assests/History/video.mp4"
+      "video": "/assets/portfolios/History/video.mp4"
     }
   },
 

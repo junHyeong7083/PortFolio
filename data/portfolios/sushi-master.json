@@ -2,7 +2,7 @@
   "id": "sushi-master",
   "title": "초밥의 법칙 (Sushi Master)",
   "subtitle": "3D 플랫포머 / 스킬 게임",
-  "thumbnail": "/assests/Sushi/title.png",
+  "thumbnail": "/assets/portfolios/Sushi/title.png",
   "order": 3,
   "periodDisplay": "2025.05 (2주)",
   "gradient": ["#064e3b", "#10b981"],
@@ -10,7 +10,7 @@
   "summary": "초밥을 안전하게 운반하는 플랫포머 게임입니다. 다양한 장애물을 피해 제한 시간 내에 목표 지점에 도달해야 합니다.",
 
   "hero": {
-    "titleImage": "/assests/Sushi/title.png",
+    "titleImage": "/assets/portfolios/Sushi/title.png",
     "stats": [
       { "icon": "👥", "label": "4인 개발", "sub": "기획 2명, 그래픽 1명, 개발 1명" },
       { "icon": "🎮", "label": "Unity 2024 (URP)", "sub": "URP Pipeline" },
@@ -19,11 +19,11 @@
     ],
     "media": {
       "images": [
-        "/assests/Sushi/image1.png",
-        "/assests/Sushi/image2.png",
-        "/assests/Sushi/image3.png"
+        "/assets/portfolios/Sushi/image1.png",
+        "/assets/portfolios/Sushi/image2.png",
+        "/assets/portfolios/Sushi/image3.png"
       ],
-      "video": "/assests/Sushi/video.mp4"
+      "video": "/assets/portfolios/Sushi/video.mp4"
     }
   },
 

@@ -2,7 +2,7 @@
   "id": "rl-npc",
   "title": "강화학습 협동 NPC",
   "subtitle": "유저 적응형 AI 전투 시스템",
-  "thumbnail": "/assests/RL-NPC/title.png",
+  "thumbnail": "/assets/portfolios/RL-NPC/title.png",
   "order": 4,
   "periodDisplay": "2024.11",
   "gradient": ["#0a1612", "#059669"],
@@ -10,7 +10,7 @@
   "summary": "PPO 기반 5vs5 멀티에이전트 강화학습 시스템. 2단계 학습 파이프라인으로 다양한 플레이어 스타일에 적응하는 협동 NPC 구현. Python-Unity 실시간 연동.",
 
   "hero": {
-    "titleImage": "/assests/RL-NPC/title.png",
+    "titleImage": "/assets/portfolios/RL-NPC/title.png",
     "stats": [
       { "icon": "👥", "label": "2인 개발", "sub": "AI 학습, Unity 연동" },
       { "icon": "🎮", "label": "Unity 2022", "sub": "3D 시각화" },
@@ -19,11 +19,11 @@
     ],
     "media": {
       "images": [
-        "/assests/RL-NPC/image1.png",
-        "/assests/RL-NPC/image2.png",
-        "/assests/RL-NPC/image3.png"
+        "/assets/portfolios/RL-NPC/image1.png",
+        "/assets/portfolios/RL-NPC/image2.png",
+        "/assets/portfolios/RL-NPC/image3.png"
       ],
-      "video": "/assests/RL-NPC/video.mp4"
+      "video": "/assets/portfolios/RL-NPC/video.mp4"
     }
   },
 
