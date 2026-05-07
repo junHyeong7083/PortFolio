@@ -4,16 +4,16 @@
   "subtitle": "하남시 정신건강 산학협력 프로젝트",
   "thumbnail": "/assets/portfolios/HanamMC/title.png",
   "order": 5,
-  "periodDisplay": "2025.09~2025.12 / 2026.02~ 대수정 진행중",
+  "periodDisplay": "2025.09~2025.12 / 2026.02~2026.03 (학교 사정으로 중단)",
   "gradient": ["#0a1f2e", "#3b82f6"],
-  "tags": ["Unity", "C#", "LiteDB", "Whisper STT", "BCrypt", "산학협력"],
-  "summary": "서강대 가상융합대학원·MENINBLOX·하남시 정신건강복지센터 산학협력 프로젝트. 정신건강 교육용 게임 앱으로 4계층 아키텍처, Whisper 기반 음성 인식, 다단계 문제 풀이 시스템을 서강대 측 1인 개발로 클라이언트 전체 구현.",
+  "tags": ["Unity 6", "C#", "URP", "LiteDB", "Whisper STT", "BCrypt"],
+  "summary": "하남시 정신건강복지센터 의뢰 · MENINBLOX 주관 · 서강대 가상융합대학원 수행의 산학협력 마음건강 교육 앱. 서강대 측 1인 개발로 Unity 클라이언트 전 영역(인증·DB·문제풀이·STT·인벤토리)을 단독 구축. 1차 빌드 후 2026.02 새 기획자 합류로 전면 재작업, 2026.03까지 진행하다 학교 사정으로 중단된 미완성 프로젝트지만 여기까지의 코드 베이스는 모두 본인 손으로 만든 결과물.",
 
   "hero": {
     "titleImage": "/assets/portfolios/HanamMC/title.png",
     "stats": [
       { "icon": "👤", "label": "1인 개발", "sub": "서강대 측 단독 클라이언트 담당" },
-      { "icon": "🎮", "label": "Unity 2022+", "sub": "Android / Windows" },
+      { "icon": "🎮", "label": "Unity 6", "sub": "6000.0.42f1 + URP 17" },
       { "icon": "📜", "label": "92+ Scripts", "sub": "4계층 아키텍처" },
       { "icon": "🤝", "label": "산학협력", "sub": "서강대 + MENINBLOX + 하남시" }
     ],
@@ -27,13 +27,13 @@
   },
 
   "info": {
-    "period": "2025.09 ~ 진행중",
-    "duration": "1차 2025.09~12 / 2026.02~ 대수정",
+    "period": "2025.09 ~ 2026.03 (중단)",
+    "duration": "1차 2025.09~12 → 2026.02~03 대수정 → 학교 사정으로 중단",
     "team": "산학협력 (서강대 측 1인)",
     "teamDetail": "서강대 가상융합대학원 + MENINBLOX(주관 기업) + 하남시 정신건강복지센터(의뢰)",
     "role": "Unity 클라이언트 전체 개발",
-    "engine": "Unity 2022+",
-    "platform": "Android / Windows"
+    "engine": "Unity 6 (6000.0.42f1)",
+    "platform": "Windows"
   },
 
   "features": [
@@ -46,11 +46,15 @@
   ],
 
   "techStack": [
-    { "category": "엔진", "value": "Unity 2022+" },
+    { "category": "엔진", "value": "Unity 6 (6000.0.42f1)" },
+    { "category": "렌더 파이프라인", "value": "URP 17.0.4" },
     { "category": "언어", "value": "C#" },
     { "category": "DB", "value": "LiteDB (임베디드 NoSQL)" },
+    { "category": "입력", "value": "New Input System 1.13" },
+    { "category": "직렬화", "value": "Newtonsoft.Json 3.2" },
     { "category": "STT", "value": "Whisper.cpp (FFI)" },
-    { "category": "보안", "value": "BCrypt.Net" }
+    { "category": "보안", "value": "BCrypt.Net" },
+    { "category": "플랫폼", "value": "Windows" }
   ],
 
   "techStackGroups": [
@@ -58,8 +62,10 @@
       "title": "게임 엔진",
       "icon": "🎮",
       "items": [
-        { "name": "Unity 2022+", "desc": "Android/Windows 빌드", "abbr": "U" },
-        { "name": "TextMeshPro", "desc": "UI 텍스트", "abbr": "TMP" }
+        { "name": "Unity 6.0.42f1", "desc": "Windows 단일 타깃", "abbr": "U6" },
+        { "name": "URP 17.0.4", "desc": "Universal RP", "abbr": "URP" },
+        { "name": "TextMeshPro", "desc": "UI 텍스트", "abbr": "TMP" },
+        { "name": "Input System 1.13", "desc": "신 입력 시스템", "abbr": "IS" }
       ]
     },
     {
@@ -91,9 +97,9 @@
   "sections": [
     {
       "title": "프로젝트 배경 / 산학협력 컨텍스트",
-      "content": "### 협력 구조\n- **의뢰**: 하남시 정신건강복지센터\n- **주관 기업**: MENINBLOX\n- **수행 기관**: 서강대학교 가상융합대학원\n\n### 본인의 위치\n- 서강대 측에서 **혼자 Unity 클라이언트 전체를 담당**\n- 92개 이상의 C# 스크립트, DB·인증·문제풀이·STT·인벤토리 전 영역 구현\n\n### 일정 흐름\n- 2025.09 ~ 12: 1차 빌드 (인증/문제 시스템/관리자 화면)\n- 2026.01: 일시 중단\n- 2026.02 ~ : MENINBLOX 측 기획자 합류 후 **전면 대수정** 진행 중\n\n### 도메인적 도전\n- 정신건강 교육 콘텐츠라는 특성상 사용자(주민) 친화 UX, 단계별 진행도 추적, 음성 인터랙션이 핵심 요구사항으로 도출됨",
+      "content": "### 협력 구조\n- **의뢰**: 하남시 정신건강복지센터\n- **주관 기업**: MENINBLOX\n- **수행 기관**: 서강대학교 가상융합대학원\n\n### 본인의 위치\n- 서강대 측에서 **혼자 Unity 클라이언트 전체를 담당**\n- 92개 이상의 C# 스크립트, DB·인증·문제풀이·STT·인벤토리 전 영역 구현\n\n### 일정 흐름\n- 2025.09 ~ 2025.12: 1차 빌드 완료 (인증·문제 시스템·관리자 화면)\n- 2026.01: 일시 중단\n- 2026.02: MENINBLOX 측 새 기획자 합류 → 기획 전면 변경에 따라 **클라이언트 전체 재설계·재구현**\n- 2026.03: 대수정 작업 진행\n- **학교 사정으로 프로젝트 중단** → 미완성 상태로 종료\n\n### 포트폴리오 의미\n- 완성품은 아니지만 **여기까지의 코드 베이스는 전적으로 본인 1인의 결과물**\n- 외부 기획 변경(2026.02 대수정)을 견디는 추상화·계층 분리 설계의 가치를 검증한 사례\n- 정신건강 교육 콘텐츠 특성상 사용자 친화 UX, 단계별 진행도 추적, 음성 인터랙션이 핵심 요구사항으로 도출됨",
       "codeFile": "README.md",
-      "code": "// Hanam_MC\n// 하남시 보건소 산학협력 프로젝트\n// - Graduate School of Virtual Convergence, Sogang University\n// - MENINBLOX (주관 기업)\n// - Hanam Mental Health Welfare Center (의뢰)\n//\n// 서강대 측 1인 개발 / Unity 클라이언트 전 영역 담당"
+      "code": "// Hanam_MC — 하남시 보건소 산학협력 프로젝트\n// - Graduate School of Virtual Convergence, Sogang University\n// - MENINBLOX (주관 기업)\n// - Hanam Mental Health Welfare Center (의뢰)\n//\n// 서강대 측 1인 개발 / Unity 클라이언트 전 영역 담당\n//\n// Timeline\n//  2025.09 ~ 2025.12  1차 빌드 완료\n//  2026.01            일시 중단\n//  2026.02 ~ 2026.03  새 기획자 합류, 전면 재작업\n//  학교 사정으로 중단 (미완성)\n//\n// Tech\n//  Unity 6 (6000.0.42f1) + URP 17.0.4\n//  C# / LiteDB / Whisper.cpp (FFI) / BCrypt.Net\n//  Platform: Windows"
     },
     {
       "title": "4계층 아키텍처 / 의존성 주입",
@@ -146,16 +152,16 @@
   ],
 
   "lessonsLearned": [
-    "산학협력 환경에서 외부 기획 변경(2026.02 대수정)에 견디는 추상화의 가치 체감",
-    "Singleton 허브(DataService)를 통한 의존성 조립이 1인 개발에서 변경비용을 크게 낮춤",
+    "외부 기획 전면 변경(2026.02 대수정)을 클라이언트가 견디기 위한 추상화·계층 분리의 실질적 가치 체감",
+    "Singleton 허브(DataService)를 통한 의존성 조립이 1인 개발에서 변경 비용을 크게 낮춤",
     "Template Method + Binder/Logic 분리로 다수 Step UI 변형을 안전하게 확장",
-    "FFI 기반 외부 라이브러리(Whisper.cpp) 통합 시 메모리·스레드 수명 관리의 중요성"
+    "FFI 기반 외부 라이브러리(Whisper.cpp) 통합 시 메모리·스레드 수명 관리의 중요성",
+    "프로젝트 중단이라는 외부 변수에도 코드 자체는 자산으로 남는다는 것을 인지하고, 이후 개인 작업의 문서화·구조 설계 우선순위를 재정립"
   ],
 
   "links": {
     "github": "https://github.com/junHyeong7083/Hanam_MC",
     "demo": "",
-    "video": "",
-    "paper": "/assets/portfolios/HanamMC/technical_report.pdf"
+    "video": ""
   }
 }
