@@ -14,21 +14,16 @@ const Projects = ({ portfolios }: ProjectsProps) => {
       <div className="my-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {sortedPortfolios.map((portfolio, index) => (
           <Link key={portfolio.id} href={`/portfolio/${portfolio.id}`} passHref>
-            <a className="group cursor-pointer overflow-hidden rounded-lg border border-gray-700 bg-gray-900 transition-all duration-200 hover:border-gray-500 hover:shadow-lg">
-              <div
-                className="relative h-32 w-full"
-                style={{
-                  background: `linear-gradient(135deg, ${portfolio.gradient[0]}, ${portfolio.gradient[1] || portfolio.gradient[0]}, ${portfolio.gradient[2] || portfolio.gradient[0]})`,
-                }}
-              >
-                <span className="absolute left-3 top-3 rounded bg-black/60 px-2 py-1 text-sm font-bold text-white">
-                  #{index + 1}
-                </span>
-                <span className="absolute right-3 top-3 rounded bg-black/60 px-2 py-1 text-xs text-gray-200">
-                  {portfolio.periodDisplay}
-                </span>
-              </div>
+            <a className="group block cursor-pointer overflow-hidden rounded-lg border border-gray-700 bg-gray-900 transition-all duration-200 hover:border-gray-500 hover:shadow-lg">
               <div className="p-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="rounded bg-black/60 px-2 py-1 text-sm font-bold text-white">
+                    #{index + 1}
+                  </span>
+                  <span className="rounded bg-black/60 px-2 py-1 text-xs text-gray-200">
+                    {portfolio.periodDisplay}
+                  </span>
+                </div>
                 <p className="text-lg font-semibold text-white group-hover:text-gray-200">
                   {portfolio.title}
                 </p>
