@@ -1,0 +1,161 @@
+{
+  "id": "hanam-mc",
+  "title": "Hanam MC",
+  "subtitle": "하남시 정신건강 산학협력 프로젝트",
+  "thumbnail": "/assets/portfolios/HanamMC/title.png",
+  "order": 5,
+  "periodDisplay": "2025.09~2025.12 / 2026.02~ 대수정 진행중",
+  "gradient": ["#0a1f2e", "#3b82f6"],
+  "tags": ["Unity", "C#", "LiteDB", "Whisper STT", "BCrypt", "산학협력"],
+  "summary": "서강대 가상융합대학원·MENINBLOX·하남시 정신건강복지센터 산학협력 프로젝트. 정신건강 교육용 게임 앱으로 4계층 아키텍처, Whisper 기반 음성 인식, 다단계 문제 풀이 시스템을 서강대 측 1인 개발로 클라이언트 전체 구현.",
+
+  "hero": {
+    "titleImage": "/assets/portfolios/HanamMC/title.png",
+    "stats": [
+      { "icon": "👤", "label": "1인 개발", "sub": "서강대 측 단독 클라이언트 담당" },
+      { "icon": "🎮", "label": "Unity 2022+", "sub": "Android / Windows" },
+      { "icon": "📜", "label": "92+ Scripts", "sub": "4계층 아키텍처" },
+      { "icon": "🤝", "label": "산학협력", "sub": "서강대 + MENINBLOX + 하남시" }
+    ],
+    "media": {
+      "images": [
+        "/assets/portfolios/HanamMC/image1.png",
+        "/assets/portfolios/HanamMC/image2.png",
+        "/assets/portfolios/HanamMC/image3.png"
+      ]
+    }
+  },
+
+  "info": {
+    "period": "2025.09 ~ 진행중",
+    "duration": "1차 2025.09~12 / 2026.02~ 대수정",
+    "team": "산학협력 (서강대 측 1인)",
+    "teamDetail": "서강대 가상융합대학원 + MENINBLOX(주관 기업) + 하남시 정신건강복지센터(의뢰)",
+    "role": "Unity 클라이언트 전체 개발",
+    "engine": "Unity 2022+",
+    "platform": "Android / Windows"
+  },
+
+  "features": [
+    "4계층 아키텍처 (UI → Service → Repository → DB) 분리 설계",
+    "LiteDB 기반 7개 컬렉션 + 역할 기반 인증 (USER/ADMIN/SUPERADMIN)",
+    "Whisper.cpp 임베디드 STT + 키워드 유사도 매칭",
+    "Template Method 기반 ProblemStepBase 계층 (객관식/카드/드래그앤드롭)",
+    "DialogueSequencer + TTS 다국어 로컬라이즈 시스템",
+    "BCrypt(WorkFactor=10) 비밀번호 해싱 + Session 복원"
+  ],
+
+  "techStack": [
+    { "category": "엔진", "value": "Unity 2022+" },
+    { "category": "언어", "value": "C#" },
+    { "category": "DB", "value": "LiteDB (임베디드 NoSQL)" },
+    { "category": "STT", "value": "Whisper.cpp (FFI)" },
+    { "category": "보안", "value": "BCrypt.Net" }
+  ],
+
+  "techStackGroups": [
+    {
+      "title": "게임 엔진",
+      "icon": "🎮",
+      "items": [
+        { "name": "Unity 2022+", "desc": "Android/Windows 빌드", "abbr": "U" },
+        { "name": "TextMeshPro", "desc": "UI 텍스트", "abbr": "TMP" }
+      ]
+    },
+    {
+      "title": "데이터",
+      "icon": "💾",
+      "items": [
+        { "name": "LiteDB", "desc": "임베디드 NoSQL", "abbr": "LDB" },
+        { "name": "Repository", "desc": "DB 추상화", "abbr": "RP" }
+      ]
+    },
+    {
+      "title": "음성",
+      "icon": "🎤",
+      "items": [
+        { "name": "Whisper.cpp", "desc": "오프라인 STT", "abbr": "WSP" },
+        { "name": "KeywordMatcher", "desc": "유사도 매칭", "abbr": "KM" }
+      ]
+    },
+    {
+      "title": "보안",
+      "icon": "🔐",
+      "items": [
+        { "name": "BCrypt", "desc": "WorkFactor=10", "abbr": "BC" },
+        { "name": "Session", "desc": "역할 기반 라우팅", "abbr": "SS" }
+      ]
+    }
+  ],
+
+  "sections": [
+    {
+      "title": "프로젝트 배경 / 산학협력 컨텍스트",
+      "content": "### 협력 구조\n- **의뢰**: 하남시 정신건강복지센터\n- **주관 기업**: MENINBLOX\n- **수행 기관**: 서강대학교 가상융합대학원\n\n### 본인의 위치\n- 서강대 측에서 **혼자 Unity 클라이언트 전체를 담당**\n- 92개 이상의 C# 스크립트, DB·인증·문제풀이·STT·인벤토리 전 영역 구현\n\n### 일정 흐름\n- 2025.09 ~ 12: 1차 빌드 (인증/문제 시스템/관리자 화면)\n- 2026.01: 일시 중단\n- 2026.02 ~ : MENINBLOX 측 기획자 합류 후 **전면 대수정** 진행 중\n\n### 도메인적 도전\n- 정신건강 교육 콘텐츠라는 특성상 사용자(주민) 친화 UX, 단계별 진행도 추적, 음성 인터랙션이 핵심 요구사항으로 도출됨",
+      "codeFile": "README.md",
+      "code": "// Hanam_MC\n// 하남시 보건소 산학협력 프로젝트\n// - Graduate School of Virtual Convergence, Sogang University\n// - MENINBLOX (주관 기업)\n// - Hanam Mental Health Welfare Center (의뢰)\n//\n// 서강대 측 1인 개발 / Unity 클라이언트 전 영역 담당"
+    },
+    {
+      "title": "4계층 아키텍처 / 의존성 주입",
+      "content": "### 레이어 분리\n- **Presentation**: LoginFormUI, HomeSceneUI, ProblemStepBase\n- **Application**: AuthService, ProgressService, RewardService, AdminService\n- **Data Access**: UserRepository, ProgressRepository, InventoryRepository 등\n- **Infrastructure**: DBGateway → DBHelper → LiteDB\n\n### 설계 원칙\n- 상위 레이어가 하위 인터페이스(IUserRepository 등)에만 의존하도록 DIP 적용\n- DataService가 Singleton Hub 역할로 모든 Service/Repository를 생성·조립\n- Service ↔ Service 의존도 허용 (LocalRewardService → IProgressService)\n\n### 의도\n- 추후 서버 연동 전환 시 Repository 구현체만 교체하면 되도록 설계",
+      "codeFile": "DataService.cs",
+      "code": "public class DataService : MonoBehaviour\n{\n    public static DataService Instance { get; private set; }\n\n    public IAuthService Auth { get; private set; }\n    public IProgressService Progress { get; private set; }\n    public IRewardService Reward { get; private set; }\n    public IAdminDataService Admin { get; private set; }\n\n    void Awake()\n    {\n        if (Instance != null) { Destroy(gameObject); return; }\n        Instance = this;\n        DontDestroyOnLoad(gameObject);\n\n        // 1. Infrastructure\n        Db = new DBGateway();\n        var dbCore = (IDBGateway)Db;\n\n        // 2. Repository (DBGateway 주입)\n        UserRepository      = new UserRepository(dbCore);\n        ProgressRepository  = new ProgressRepository(dbCore);\n        InventoryRepository = new InventoryRepository(dbCore);\n        ResultRepository    = new ResultRepository(dbCore);\n\n        // 3. Service (Repository 주입, Service 간 조합 허용)\n        Auth     = new AuthService(UserRepository);\n        Progress = new LocalProgressService(\n            ProgressRepository, UserRepository, ResultRepository);\n        Reward   = new LocalRewardService(\n            InventoryRepository, UserRepository, Progress);\n    }\n}"
+    },
+    {
+      "title": "ProblemStepBase / Template Method",
+      "content": "### Step 계층\n- ProblemStepBase (abstract)\n  - MultipleChoiceStepBase<T> : 객관식\n  - RandomCardSequenceStepBase : 카드 순서 맞추기\n  - InventoryDropTargetStepBase : 드래그 앤 드롭\n  - CommonRewardStep : 공통 보상 연출\n\n### 공통 훅\n- OnStepEnter / OnStepExit\n- SaveAttempt(body) → DB attempts 컬렉션 INSERT\n- SaveReward(body, itemId, itemName) → attempts + inventory 동시 처리\n\n### 흐름\n- StepFlowController가 List<GameObject> stepPanels 순차 활성화\n- StepCompletionGate가 진행률을 카운트하고 완료 시 자동 NextStep 호출\n- Director_Problem{N}_Step{M}_Logic(abstract) ↔ Binder(SerializeField 주입) 분리",
+      "codeFile": "ProblemStepBase.cs",
+      "code": "public abstract class ProblemStepBase : MonoBehaviour\n{\n    [SerializeField] protected ProblemContext context;\n    [SerializeField] protected StepKeyConfig stepKeyConfig;\n\n    public abstract void OnStepEnter();\n    public virtual void OnStepExit() { }\n\n    protected void SaveAttempt(object body)\n    {\n        var key = stepKeyConfig.BuildKey(\n            ProblemSession.CurrentTheme,\n            ProblemSession.CurrentProblemIndex);\n\n        DataService.Instance.Progress\n            .SaveStepAttemptForCurrentUser(key, body);\n    }\n\n    protected void SaveReward(object body, string itemId, string itemName)\n    {\n        DataService.Instance.Reward\n            .SaveRewardForCurrentUser(\n                ProblemSession.CurrentTheme,\n                ProblemSession.CurrentProblemIndex,\n                body, itemId, itemName);\n    }\n}\n\npublic abstract class MultipleChoiceStepBase<T> : ProblemStepBase\n{\n    [SerializeField] protected StepCompletionGate completionGate;\n\n    public abstract int QuestionCount { get; }\n    public abstract T GetQuestion(int index);\n    public abstract int GetCorrectOptionIndex(T q);\n}"
+    },
+    {
+      "title": "Whisper STT + 키워드 매칭",
+      "content": "### 오프라인 음성 인식\n- Whisper.cpp 라이브러리를 FFI(IntPtr)로 직접 호출\n- 마이크 → AudioClip → float 샘플 → Whisper 컨텍스트로 전달\n- 무음 감지 기반 자동 종료 (사용자가 말 끝났을 때 자동 stop)\n\n### 3상태 시각 피드백 (MicRecordingIndicator)\n- idle / recording / recognizing 스프라이트 전환\n- 부분 인식(OnPartialResult)과 최종 결과(OnFinalResult) 모두 키워드 매칭에 사용\n\n### KeywordMatcher\n- Levenshtein 기반 유사도 계산\n- 부분 일치 / 전체 일치 모두 허용 → 발화 변형(\"마음렌즈\", \"마음 렌즈\")에 강건\n- 정신건강 콘텐츠 특성상 음성 답변을 통한 표현·감정 학습이 핵심 인터랙션",
+      "codeFile": "MicRecordingIndicator.cs",
+      "code": "public class MicRecordingIndicator : MonoBehaviour\n{\n    [SerializeField] Image targetImage;\n    [SerializeField] Sprite idleSprite;\n    [SerializeField] Sprite recordingSprite;\n    [SerializeField] Sprite recognizingSprite;\n    [SerializeField] string[] keywords;\n\n    public event Action<int> OnKeywordMatched;\n    public event Action<string> OnNoMatch;\n\n    void OnEnable()\n    {\n        STTManager.Instance.OnPartialResult += HandlePartial;\n        STTManager.Instance.OnFinalResult   += HandleFinal;\n    }\n\n    public void ToggleRecording()\n    {\n        if (STTManager.Instance.IsRecording)\n        {\n            STTManager.Instance.StopRecording(skipProcessing: false);\n            SetState(recognizingSprite);\n        }\n        else\n        {\n            STTManager.Instance.SetPromptHint(keywords);\n            STTManager.Instance.StartRecording();\n            SetState(recordingSprite);\n        }\n    }\n\n    void HandleFinal(string text)\n    {\n        var (bestIdx, score) = KeywordMatcher.FindBestMatch(text, keywords);\n        if (score >= 0.6f) OnKeywordMatched?.Invoke(bestIdx);\n        else               OnNoMatch?.Invoke(text);\n        SetState(idleSprite);\n    }\n}"
+    },
+    {
+      "title": "DialogueSequencer / TTS 로컬라이즈",
+      "content": "### 다국어 텍스트 → 음성 파이프라인\n- ProblemRuntime.L(textId) / LK / LE 로 한·영·기타 언어 텍스트 조회\n- SoundManager가 textId → AudioClip 매핑 사전을 보유, 동일 ID로 TTS 재생\n- 텍스트와 음성이 같은 식별자로 묶여 있어 누락·미스매치 방지\n\n### 시퀀스 흐름\n- enterTextIds[] : Step 진입 시 자동 재생할 대사 배열\n- completedTextIds[] : 게이트 완료 시 재생할 마무리 대사\n- 다음 대사 버튼 ↔ 다음 단계 버튼이 이벤트로 분리되어 사용자 흐름 제어",
+      "codeFile": "DialogueSequencer.cs",
+      "code": "public class DialogueSequencer : MonoBehaviour\n{\n    [SerializeField] int[] enterTextIds;\n    [SerializeField] int[] completedTextIds;\n    [SerializeField] Text dialogueText;\n    [SerializeField] Button nextDialogueBtn;\n    [SerializeField] Button nextStepBtn;\n\n    public event Action OnEnterSequenceDone;\n    public event Action OnEnterComplete;\n\n    int _index;\n    int[] _current;\n\n    public void PlaySequence(int[] ids, Action onSeq, Action onComplete)\n    {\n        _current = ids;\n        _index = 0;\n        OnEnterSequenceDone = onSeq;\n        OnEnterComplete     = onComplete;\n        ShowAt(_index);\n    }\n\n    void ShowAt(int i)\n    {\n        int textId = _current[i];\n        dialogueText.text = ProblemRuntime.L(textId);\n        SoundManager.Instance.PlayTTS(textId);\n    }\n\n    public void OnNextDialogueClicked()\n    {\n        if (SoundManager.Instance.IsTTSPlaying) return;\n\n        _index++;\n        if (_index >= _current.Length) OnEnterSequenceDone?.Invoke();\n        else ShowAt(_index);\n    }\n}"
+    },
+    {
+      "title": "인증 / 보안 (BCrypt + Result 모노이드)",
+      "content": "### BCrypt 해싱\n- WorkFactor = 10 으로 회원가입 시 PasswordHash 저장\n- 로그인 시 Verify로만 비교, 평문 비밀번호는 절대 보관/로그하지 않음\n\n### Result 모노이드\n- Result<T> / AuthError enum 으로 명시적 에러 흐름\n- try-catch 후 Internal 에러로 분기, UI는 enum만 보고 메시지 결정\n\n### 역할 기반 라우팅\n- 로그인 성공 시 SessionManager.SignIn → 역할 따라 분기\n  - USER → HomeScene (문제 풀이)\n  - ADMIN/SUPERADMIN → ResultScene (관리자 화면)\n\n### SuperAdmin Bootstrap\n- AuthService 생성자에서 EnsureSuperAdmin() 호출, 빈 DB일 때 기본 관리자 자동 생성",
+      "codeFile": "AuthService.cs",
+      "code": "public class AuthService : IAuthService\n{\n    private readonly IUserRepository _users;\n    private const int BcryptWorkFactor = 10;\n\n    public AuthService(IUserRepository users)\n    {\n        _users = users ?? throw new ArgumentNullException(nameof(users));\n        EnsureSuperAdmin();\n    }\n\n    public Result<User> Login(string email, string password)\n    {\n        try\n        {\n            var e = AuthValidator.NormalizeEmail(email);\n            if (!AuthValidator.IsValidEmail(e))\n                return Result<User>.Fail(AuthError.EmailInvalid);\n\n            var u = _users.FindActiveUserByEmail(e);\n            if (u == null)\n                return Result<User>.Fail(AuthError.NotFoundOrInactive);\n\n            bool ok = BCrypt.Net.BCrypt.Verify(password, u.PasswordHash);\n            if (!ok)\n                return Result<User>.Fail(AuthError.PasswordMismatch);\n\n            return Result<User>.Success(u);\n        }\n        catch (Exception ex)\n        {\n            Debug.LogError($\"[AuthService] Login error: {ex}\");\n            return Result<User>.Fail(AuthError.Internal);\n        }\n    }\n\n    public Result SignUp(string name, string email, string password)\n    {\n        if (_users.ExistsEmail(email))\n            return Result.Fail(AuthError.EmailDuplicated);\n\n        var hash = BCrypt.Net.BCrypt.HashPassword(password, BcryptWorkFactor);\n        _users.InsertUser(new User { Name = name, Email = email, PasswordHash = hash });\n        return Result.Success();\n    }\n}"
+    }
+  ],
+
+  "designPatterns": [
+    { "pattern": "Singleton", "usage": "DataService, SessionManager, SoundManager, STTManager, ProblemRuntime 전역 허브" },
+    { "pattern": "Repository", "usage": "User/Progress/Inventory/Problem/Result/Feedback Repository로 LiteDB 추상화" },
+    { "pattern": "Service Layer", "usage": "AuthService, ProgressService, RewardService 비즈니스 로직 캡슐화" },
+    { "pattern": "Template Method", "usage": "ProblemStepBase의 OnStepEnter/Exit 훅, 하위 클래스에서 세부 구현" },
+    { "pattern": "Binder/Logic", "usage": "Director_Problem{N}_Step{M}_Logic(abstract) ↔ Binder(SerializeField) 분리" },
+    { "pattern": "Observer", "usage": "DialogueSequencer, MicRecordingIndicator, StepCompletionGate의 C# event 통신" },
+    { "pattern": "State", "usage": "MicRecordingIndicator의 idle/recording/recognizing 3상태 시각 피드백" },
+    { "pattern": "Facade", "usage": "DataService가 Auth/Progress/Reward 등 하위 서비스 통합 진입점 제공" }
+  ],
+
+  "achievements": [
+    "산학협력 프로젝트에서 서강대 측 1인으로 Unity 클라이언트 전체(92+ 스크립트) 단독 개발",
+    "4계층 + DI 구조로 Repository 구현체만 교체하면 서버 연동 전환 가능한 설계",
+    "Whisper.cpp 임베디드 STT를 Unity FFI로 통합, 오프라인 음성 인터랙션 구현",
+    "BCrypt + Result 모노이드 + 역할 기반 라우팅으로 보안·에러 흐름 명시화"
+  ],
+
+  "lessonsLearned": [
+    "산학협력 환경에서 외부 기획 변경(2026.02 대수정)에 견디는 추상화의 가치 체감",
+    "Singleton 허브(DataService)를 통한 의존성 조립이 1인 개발에서 변경비용을 크게 낮춤",
+    "Template Method + Binder/Logic 분리로 다수 Step UI 변형을 안전하게 확장",
+    "FFI 기반 외부 라이브러리(Whisper.cpp) 통합 시 메모리·스레드 수명 관리의 중요성"
+  ],
+
+  "links": {
+    "github": "https://github.com/junHyeong7083/Hanam_MC",
+    "demo": "",
+    "video": "",
+    "paper": "/assets/portfolios/HanamMC/technical_report.pdf"
+  }
+}
