@@ -179,9 +179,9 @@
   ],
 
   "links": {
-    "github": "",
-    "githubServer": "",
-    "githubClient": "",
+    "github": "https://github.com/junHyeong7083/aipa_engine",
+    "githubServer": "https://github.com/junHyeong7083/aipa_engine",
+    "githubClient": "https://github.com/junHyeong7083/aipa_client",
     "demo": "",
     "video": ""
   }
