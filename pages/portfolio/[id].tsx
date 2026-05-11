@@ -192,7 +192,27 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                       📺 플레이 영상
                     </a>
                   )}
-                  {portfolio.links.github && (
+                  {(portfolio.links as any).githubServer && (
+                    <a
+                      href={(portfolio.links as any).githubServer}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-800 transition-all"
+                    >
+                      🖥️ Server Repo
+                    </a>
+                  )}
+                  {(portfolio.links as any).githubClient && (
+                    <a
+                      href={(portfolio.links as any).githubClient}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-800 transition-all"
+                    >
+                      📱 Client Repo
+                    </a>
+                  )}
+                  {portfolio.links.github && !(portfolio.links as any).githubServer && !(portfolio.links as any).githubClient && (
                     <a
                       href={portfolio.links.github}
                       target="_blank"
@@ -676,9 +696,23 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
               <div>
                 <h4 className="font-semibold mb-4">프로젝트 링크</h4>
                 <ul className="space-y-2">
-                  {portfolio.links.github && (
+                  {(portfolio.links as any).githubServer && (
                     <li>
-                      <a href={portfolio.links.github} className="text-gray-400 hover:text-white flex items-center gap-2">
+                      <a href={(portfolio.links as any).githubServer} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white flex items-center gap-2">
+                        🖥️ Server Repository (aipa_engine)
+                      </a>
+                    </li>
+                  )}
+                  {(portfolio.links as any).githubClient && (
+                    <li>
+                      <a href={(portfolio.links as any).githubClient} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white flex items-center gap-2">
+                        📱 Client Repository (aipa_client)
+                      </a>
+                    </li>
+                  )}
+                  {portfolio.links.github && !(portfolio.links as any).githubServer && !(portfolio.links as any).githubClient && (
+                    <li>
+                      <a href={portfolio.links.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white flex items-center gap-2">
                         💻 GitHub Repository
                       </a>
                     </li>

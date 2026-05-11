@@ -7,12 +7,12 @@
   "periodDisplay": "2026.01 ~ 현재 진행 중",
   "gradient": ["#0a1729", "#7c3aed"],
   "tags": ["Python", "FastAPI", "PyTorch", "Flutter", "Qwen LoRA", "ChromaDB", "GCP Cloud Run"],
-  "summary": "설문지 PDF를 업로드하면 AI 가상 패널이 실제 사람처럼 설문에 응답하고 통계 리포트를 생성하는 시뮬레이션 플랫폼. **서버(aipa_engine)** 와 **클라이언트(flutter_app)** 두 개 레포로 구성된 풀스택 시스템. Claude API로 합성 학습 데이터를 생성해 자체 경량 점수 예측 모델(~50K 파라미터)과 0.5B 파인튜닝 LLM을 만들어 외부 API 의존성을 제거함. AI 모델 학습 / FastAPI 백엔드 / Flutter 앱 / GCP Cloud Run 배포 전 영역 1인 개발.",
+  "summary": "설문지 PDF를 업로드하면 AI 가상 패널이 실제 사람처럼 설문에 응답하고 통계 리포트를 생성하는 시뮬레이션 플랫폼. **서버(aipa_engine)** 와 **클라이언트(aipa_client)** 두 개 레포로 구성된 풀스택 시스템. Claude API로 합성 학습 데이터를 생성해 자체 경량 점수 예측 모델(~50K 파라미터)과 0.5B 파인튜닝 LLM을 만들어 외부 API 의존성을 제거함. AI 모델 학습 / FastAPI 백엔드 / Flutter 앱 / GCP Cloud Run 배포 전 영역 1인 개발.",
 
   "hero": {
     "titleImage": "/assets/portfolios/AIPA/pipeline.png",
     "stats": [
-      { "icon": "📦", "label": "2-Repo 풀스택", "sub": "aipa_engine + flutter_app" },
+      { "icon": "📦", "label": "2-Repo 풀스택", "sub": "aipa_engine + aipa_client" },
       { "icon": "🧠", "label": "자체 모델 2종", "sub": "점수 예측 + 0.5B LoRA" },
       { "icon": "📊", "label": "4,327건 학습 데이터", "sub": "Knowledge Distillation" },
       { "icon": "☁️", "label": "Cloud Run 배포", "sub": "서버리스 운영" }
@@ -29,7 +29,7 @@
     "period": "2026.01 ~ 현재 진행 중",
     "duration": "예비창업패키지 제안 프로젝트",
     "team": "1인 개발",
-    "teamDetail": "서버(aipa_engine) + 클라이언트(flutter_app) 양쪽 레포 전 영역 단독 수행",
+    "teamDetail": "서버(aipa_engine) + 클라이언트(aipa_client) 양쪽 레포 전 영역 단독 수행",
     "role": "AI 모델 학습 / 백엔드 / 모바일 앱 / 클라우드 배포",
     "engine": "Flutter (클라이언트) + FastAPI + PyTorch (서버)",
     "platform": "Android (iOS 확장 가능) ↔ GCP Cloud Run 서버"
@@ -102,13 +102,13 @@
       "title": "프로젝트 배경 / 문제 의식",
       "content": "### 기존 설문조사의 한계\n- 실제 패널 모집: 500만원+ 비용, 2주~1개월 소요\n- 사전 검증 없이 본 조사 시 설문 설계 실패 위험\n- 반복 테스트 비용 누적\n\n### 해결 아이디어\n- AI 페르소나를 통계청 데이터 기반으로 생성해 사전 시뮬레이션\n- 단순 LLM 호출이 아닌, **자체 학습 모델로 비용/속도 문제 해결**\n- 8가지 인간 편향을 명시적으로 시뮬레이션해 AI 특유의 \"완벽한 응답\" 회피\n\n### 차별화 포인트\n- ChatGPT에 \"20대처럼 답해줘\"가 아닌 **실제 인구통계 기반 페르소나**\n- AI가 감으로 답하는 게 아니라 **자체 점수 예측 모델 + 자체 LLM이 이유 생성**\n- 외부 API 의존도를 채팅 기능만으로 제한, 설문 시뮬레이션은 자체 모델로 100% 동작",
       "codeFile": "pipeline_v3_proposal.md",
-      "code": "# AIPA - 풀스택 시스템 구성\n# Period: 2026.01 ~ 현재\n# Status: MVP 완료, 베타 테스트 진행 중\n#\n# Repository 1: aipa_engine (서버)\n#  Python 3.11 + FastAPI + Uvicorn\n#  PyTorch (점수 예측) + Qwen 2.5-0.5B LoRA (LLM)\n#  ChromaDB + ko-sroberta-multitask (RAG)\n#  Dockerfile → GCP Cloud Run 배포\n#\n# Repository 2: flutter_app (클라이언트)\n#  Flutter 3.x + Dart + Provider\n#  Firebase Auth (Google/Kakao/Email)\n#  http 패키지로 서버 REST API 호출\n#  Android 앱 (iOS 확장 가능)\n#\n# Data Sources\n#  KOSIS (통계청) - 한국 인구 통계\n#  네이버 데이터랩 - 검색/쇼핑 트렌드\n#  Claude API - 합성 학습 데이터 생성 (Knowledge Distillation)"
+      "code": "# AIPA - 풀스택 시스템 구성\n# Period: 2026.01 ~ 현재\n# Status: MVP 완료, 베타 테스트 진행 중\n#\n# Repository 1: aipa_engine (서버)\n#  Python 3.11 + FastAPI + Uvicorn\n#  PyTorch (점수 예측) + Qwen 2.5-0.5B LoRA (LLM)\n#  ChromaDB + ko-sroberta-multitask (RAG)\n#  Dockerfile → GCP Cloud Run 배포\n#\n# Repository 2: aipa_client (클라이언트)\n#  Flutter 3.x + Dart + Provider\n#  Firebase Auth (Google/Kakao/Email)\n#  http 패키지로 서버 REST API 호출\n#  Android 앱 (iOS 확장 가능)\n#\n# Data Sources\n#  KOSIS (통계청) - 한국 인구 통계\n#  네이버 데이터랩 - 검색/쇼핑 트렌드\n#  Claude API - 합성 학습 데이터 생성 (Knowledge Distillation)"
     },
     {
       "title": "시스템 아키텍처 (서버 ↔ 클라이언트)",
-      "content": "### 레포 구성\n- **aipa_engine** (Python/FastAPI 서버)\n  - AI 모델 학습 코드 (PyTorch, Transformers, PEFT)\n  - 추론 서비스 (EvalService, SimulationService, ResponseGenerator)\n  - 학습 데이터 생성 스크립트 (Claude API 활용)\n  - Dockerfile + Cloud Run 배포 설정\n\n- **flutter_app** (Flutter 모바일 클라이언트)\n  - UI 화면 (페르소나 빌더, PDF 업로드, 시뮬레이션 진행, 결과 차트, AI 채팅)\n  - ApiService로 서버 REST API 호출\n  - Firebase Auth 통합\n  - 백그라운드 작업 + 로컬 알림\n\n### 양쪽 레포의 통신 흐름\n```\n[Flutter 앱]                              [Cloud Run 서버]\n  ↓                                                ↑\n사용자 PDF 업로드 → POST /upload/document → Claude API로 문항 추출\n  ↓                                                ↑\n페르소나 설정     → POST /personas/generate  → KOSIS 통계 기반 생성\n  ↓                                                ↑\n시뮬레이션 시작   → POST /simulations/      → 백그라운드 작업 등록\n  ↓                                                ↓\n진행률 폴링       → GET /simulations/{id}   ← 임베딩 점수 예측\n  ↓                                                  + RAG 보정\n  ↓                                                  + 0.5B 이유 생성\n  ↓                                                  + 인간 편향 적용\n결과 화면         → GET /simulations/{id}/result\n```\n\n### API 통신 규약\n- REST + JSON / multipart 업로드\n- 비동기 작업은 폴링 패턴 (서버는 stateless, Firestore에 결과 저장)\n- 타임아웃 60초 (Claude 파싱 ~13초 고려)\n- 백엔드 응답 실패 시 클라이언트가 3단계 재시도 후 사용자에게 알림\n\n### 인증\n- 클라이언트 Firebase Auth로 토큰 발급 → 서버에 Bearer 전달\n- 서버는 firebase-admin SDK로 토큰 검증",
+      "content": "### 레포 구성\n- **aipa_engine** (Python/FastAPI 서버)\n  - AI 모델 학습 코드 (PyTorch, Transformers, PEFT)\n  - 추론 서비스 (EvalService, SimulationService, ResponseGenerator)\n  - 학습 데이터 생성 스크립트 (Claude API 활용)\n  - Dockerfile + Cloud Run 배포 설정\n\n- **aipa_client** (Flutter 모바일 클라이언트)\n  - UI 화면 (페르소나 빌더, PDF 업로드, 시뮬레이션 진행, 결과 차트, AI 채팅)\n  - ApiService로 서버 REST API 호출\n  - Firebase Auth 통합\n  - 백그라운드 작업 + 로컬 알림\n\n### 양쪽 레포의 통신 흐름\n```\n[aipa_client]                             [aipa_engine]\n  ↓                                                ↑\n사용자 PDF 업로드 → POST /upload/document → Claude API로 문항 추출\n  ↓                                                ↑\n페르소나 설정     → POST /personas/generate  → KOSIS 통계 기반 생성\n  ↓                                                ↑\n시뮬레이션 시작   → POST /simulations/      → 백그라운드 작업 등록\n  ↓                                                ↓\n진행률 폴링       → GET /simulations/{id}   ← 임베딩 점수 예측\n  ↓                                                  + RAG 보정\n  ↓                                                  + 0.5B 이유 생성\n  ↓                                                  + 인간 편향 적용\n결과 화면         → GET /simulations/{id}/result\n```\n\n### API 통신 규약\n- REST + JSON / multipart 업로드\n- 비동기 작업은 폴링 패턴 (서버는 stateless, Firestore에 결과 저장)\n- 타임아웃 60초 (Claude 파싱 ~13초 고려)\n- 백엔드 응답 실패 시 클라이언트가 3단계 재시도 후 사용자에게 알림\n\n### 인증\n- 클라이언트 Firebase Auth로 토큰 발급 → 서버에 Bearer 전달\n- 서버는 firebase-admin SDK로 토큰 검증",
       "codeFile": "api_service.dart / simulations.py",
-      "code": "// [Flutter] flutter_app/lib/services/api_service.dart\nFuture<Map<String, dynamic>> startSimulation({\n  required List<Map<String, dynamic>> personas,\n  required List<Map<String, dynamic>> questions,\n}) async {\n  final response = await _client.post(\n    Uri.parse('$baseUrl/api/v1/simulations/'),\n    headers: {'Content-Type': 'application/json'},\n    body: jsonEncode({\n      'personas': personas,\n      'questions': questions,\n      'generate_explanations': true,\n    }),\n  ).timeout(const Duration(seconds: 60));\n  return jsonDecode(utf8.decode(response.bodyBytes));\n}\n\n# [Server] aipa_engine/src/aipa_engine/api/simulations.py\n@router.post(\"/\", response_model=SimulationResponse)\nasync def create_simulation(\n    request: SimulationRequest,\n    background_tasks: BackgroundTasks,\n):\n    session_id = str(uuid.uuid4())\n    SESSIONS[session_id] = {\"status\": \"running\", \"progress\": 0}\n\n    # 백그라운드에서 임베딩 모델 → RAG → 0.5B 이유 생성 파이프라인 실행\n    background_tasks.add_task(\n        run_simulation_pipeline,\n        session_id, request.personas, request.questions,\n    )\n    return SimulationResponse(session_id=session_id, status=\"started\")"
+      "code": "// [Client: aipa_client] lib/services/api_service.dart\nFuture<Map<String, dynamic>> startSimulation({\n  required List<Map<String, dynamic>> personas,\n  required List<Map<String, dynamic>> questions,\n}) async {\n  final response = await _client.post(\n    Uri.parse('$baseUrl/api/v1/simulations/'),\n    headers: {'Content-Type': 'application/json'},\n    body: jsonEncode({\n      'personas': personas,\n      'questions': questions,\n      'generate_explanations': true,\n    }),\n  ).timeout(const Duration(seconds: 60));\n  return jsonDecode(utf8.decode(response.bodyBytes));\n}\n\n# [Server: aipa_engine] src/aipa_engine/api/simulations.py\n@router.post(\"/\", response_model=SimulationResponse)\nasync def create_simulation(\n    request: SimulationRequest,\n    background_tasks: BackgroundTasks,\n):\n    session_id = str(uuid.uuid4())\n    SESSIONS[session_id] = {\"status\": \"running\", \"progress\": 0}\n\n    # 백그라운드에서 임베딩 모델 → RAG → 0.5B 이유 생성 파이프라인 실행\n    background_tasks.add_task(\n        run_simulation_pipeline,\n        session_id, request.personas, request.questions,\n    )\n    return SimulationResponse(session_id=session_id, status=\"started\")"
     },
     {
       "title": "Knowledge Distillation / 합성 학습 데이터 생성",
@@ -159,7 +159,7 @@
   ],
 
   "achievements": [
-    "서버(aipa_engine) + 클라이언트(flutter_app) 두 레포로 구성된 풀스택 시스템을 1인 단독 개발",
+    "서버(aipa_engine) + 클라이언트(aipa_client) 두 레포로 구성된 풀스택 시스템을 1인 단독 개발",
     "Claude API 의존도를 채팅 기능만으로 제한, 설문 시뮬레이션은 자체 모델로 100% 동작",
     "약 50,000개 파라미터의 경량 점수 예측 모델로 평균 오차 8.7점 / 추론 0.01초 달성",
     "Qwen 2.5-0.5B를 QLoRA로 파인튜닝, GGUF 변환 후 CPU 환경에서 1~2초 이유 생성",
