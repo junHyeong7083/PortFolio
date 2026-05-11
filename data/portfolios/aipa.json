@@ -1,0 +1,188 @@
+{
+  "id": "aipa",
+  "title": "AIPA",
+  "subtitle": "AI 페르소나 기반 설문 시뮬레이션 플랫폼",
+  "thumbnail": "/assets/portfolios/AIPA/pipeline.png",
+  "order": 6,
+  "periodDisplay": "2026.01 ~ 현재 진행 중",
+  "gradient": ["#0a1729", "#7c3aed"],
+  "tags": ["Python", "FastAPI", "PyTorch", "Flutter", "Qwen LoRA", "ChromaDB", "GCP Cloud Run"],
+  "summary": "설문지 PDF를 업로드하면 AI 가상 패널이 실제 사람처럼 설문에 응답하고 통계 리포트를 생성하는 시뮬레이션 플랫폼. **서버(aipa_engine)** 와 **클라이언트(flutter_app)** 두 개 레포로 구성된 풀스택 시스템. Claude API로 합성 학습 데이터를 생성해 자체 경량 점수 예측 모델(~50K 파라미터)과 0.5B 파인튜닝 LLM을 만들어 외부 API 의존성을 제거함. AI 모델 학습 / FastAPI 백엔드 / Flutter 앱 / GCP Cloud Run 배포 전 영역 1인 개발.",
+
+  "hero": {
+    "titleImage": "/assets/portfolios/AIPA/pipeline.png",
+    "stats": [
+      { "icon": "📦", "label": "2-Repo 풀스택", "sub": "aipa_engine + flutter_app" },
+      { "icon": "🧠", "label": "자체 모델 2종", "sub": "점수 예측 + 0.5B LoRA" },
+      { "icon": "📊", "label": "4,327건 학습 데이터", "sub": "Knowledge Distillation" },
+      { "icon": "☁️", "label": "Cloud Run 배포", "sub": "서버리스 운영" }
+    ],
+    "media": {
+      "images": [
+        "/assets/portfolios/AIPA/pipeline.png",
+        "/assets/portfolios/AIPA/embedding-architecture.png"
+      ]
+    }
+  },
+
+  "info": {
+    "period": "2026.01 ~ 현재 진행 중",
+    "duration": "예비창업패키지 제안 프로젝트",
+    "team": "1인 개발",
+    "teamDetail": "서버(aipa_engine) + 클라이언트(flutter_app) 양쪽 레포 전 영역 단독 수행",
+    "role": "AI 모델 학습 / 백엔드 / 모바일 앱 / 클라우드 배포",
+    "engine": "Flutter (클라이언트) + FastAPI + PyTorch (서버)",
+    "platform": "Android (iOS 확장 가능) ↔ GCP Cloud Run 서버"
+  },
+
+  "features": [
+    "PDF 설문지 업로드 → Claude AI로 문항 자동 추출 (객관식/리커트/매트릭스 인식)",
+    "KOSIS 통계청 인구 분포 기반 AI 페르소나 생성",
+    "자체 임베딩 모델(~50K params)로 페르소나별 응답 점수 0.01초 예측",
+    "Qwen 2.5-0.5B LoRA 파인튜닝 모델로 응답 이유 자연어 생성",
+    "ChromaDB + 네이버 데이터랩 트렌드 기반 RAG 점수 보정",
+    "8가지 인간 응답 편향 시뮬레이션 (극단 회피, 묵종, 사회적 바람직성 등)",
+    "Cloud Run 배포 + Firestore + Firebase Auth 통합"
+  ],
+
+  "techStack": [
+    { "category": "AI Framework", "value": "PyTorch, HuggingFace Transformers, PEFT" },
+    { "category": "Fine-tuning", "value": "QLoRA (NF4 4-bit) + LoRA r=16" },
+    { "category": "Base LLM", "value": "Qwen 2.5-0.5B / 7B-Instruct" },
+    { "category": "Backend", "value": "Python 3.11, FastAPI, Uvicorn" },
+    { "category": "Vector DB", "value": "ChromaDB + ko-sroberta-multitask" },
+    { "category": "Frontend", "value": "Flutter 3.x, Dart" },
+    { "category": "Cloud", "value": "GCP Cloud Run, Firestore, Firebase Auth" },
+    { "category": "External APIs", "value": "Claude API, KOSIS, 네이버 데이터랩" }
+  ],
+
+  "techStackGroups": [
+    {
+      "title": "AI / ML",
+      "icon": "🧠",
+      "items": [
+        { "name": "PyTorch", "desc": "임베딩 모델 학습", "abbr": "PT" },
+        { "name": "Transformers", "desc": "Qwen LLM 파인튜닝", "abbr": "HF" },
+        { "name": "PEFT / LoRA", "desc": "어댑터 학습", "abbr": "LoRA" },
+        { "name": "BitsAndBytes", "desc": "4bit 양자화 (NF4)", "abbr": "BNB" }
+      ]
+    },
+    {
+      "title": "백엔드",
+      "icon": "⚙️",
+      "items": [
+        { "name": "FastAPI", "desc": "REST API 서버", "abbr": "FA" },
+        { "name": "ChromaDB", "desc": "벡터 검색 (RAG)", "abbr": "CDB" },
+        { "name": "Firestore", "desc": "NoSQL 저장소", "abbr": "FS" },
+        { "name": "Cloud Run", "desc": "서버리스 배포", "abbr": "CR" }
+      ]
+    },
+    {
+      "title": "모바일",
+      "icon": "📱",
+      "items": [
+        { "name": "Flutter", "desc": "크로스플랫폼 앱", "abbr": "FL" },
+        { "name": "Provider", "desc": "상태 관리", "abbr": "PV" },
+        { "name": "Firebase Auth", "desc": "로그인/인증", "abbr": "FB" }
+      ]
+    },
+    {
+      "title": "데이터 소스",
+      "icon": "🌐",
+      "items": [
+        { "name": "Claude API", "desc": "학습 데이터 생성", "abbr": "CL" },
+        { "name": "KOSIS", "desc": "통계청 인구 데이터", "abbr": "KS" },
+        { "name": "네이버 데이터랩", "desc": "검색/쇼핑 트렌드", "abbr": "NV" }
+      ]
+    }
+  ],
+
+  "sections": [
+    {
+      "title": "프로젝트 배경 / 문제 의식",
+      "content": "### 기존 설문조사의 한계\n- 실제 패널 모집: 500만원+ 비용, 2주~1개월 소요\n- 사전 검증 없이 본 조사 시 설문 설계 실패 위험\n- 반복 테스트 비용 누적\n\n### 해결 아이디어\n- AI 페르소나를 통계청 데이터 기반으로 생성해 사전 시뮬레이션\n- 단순 LLM 호출이 아닌, **자체 학습 모델로 비용/속도 문제 해결**\n- 8가지 인간 편향을 명시적으로 시뮬레이션해 AI 특유의 \"완벽한 응답\" 회피\n\n### 차별화 포인트\n- ChatGPT에 \"20대처럼 답해줘\"가 아닌 **실제 인구통계 기반 페르소나**\n- AI가 감으로 답하는 게 아니라 **자체 점수 예측 모델 + 자체 LLM이 이유 생성**\n- 외부 API 의존도를 채팅 기능만으로 제한, 설문 시뮬레이션은 자체 모델로 100% 동작",
+      "codeFile": "pipeline_v3_proposal.md",
+      "code": "# AIPA - 풀스택 시스템 구성\n# Period: 2026.01 ~ 현재\n# Status: MVP 완료, 베타 테스트 진행 중\n#\n# Repository 1: aipa_engine (서버)\n#  Python 3.11 + FastAPI + Uvicorn\n#  PyTorch (점수 예측) + Qwen 2.5-0.5B LoRA (LLM)\n#  ChromaDB + ko-sroberta-multitask (RAG)\n#  Dockerfile → GCP Cloud Run 배포\n#\n# Repository 2: flutter_app (클라이언트)\n#  Flutter 3.x + Dart + Provider\n#  Firebase Auth (Google/Kakao/Email)\n#  http 패키지로 서버 REST API 호출\n#  Android 앱 (iOS 확장 가능)\n#\n# Data Sources\n#  KOSIS (통계청) - 한국 인구 통계\n#  네이버 데이터랩 - 검색/쇼핑 트렌드\n#  Claude API - 합성 학습 데이터 생성 (Knowledge Distillation)"
+    },
+    {
+      "title": "시스템 아키텍처 (서버 ↔ 클라이언트)",
+      "content": "### 레포 구성\n- **aipa_engine** (Python/FastAPI 서버)\n  - AI 모델 학습 코드 (PyTorch, Transformers, PEFT)\n  - 추론 서비스 (EvalService, SimulationService, ResponseGenerator)\n  - 학습 데이터 생성 스크립트 (Claude API 활용)\n  - Dockerfile + Cloud Run 배포 설정\n\n- **flutter_app** (Flutter 모바일 클라이언트)\n  - UI 화면 (페르소나 빌더, PDF 업로드, 시뮬레이션 진행, 결과 차트, AI 채팅)\n  - ApiService로 서버 REST API 호출\n  - Firebase Auth 통합\n  - 백그라운드 작업 + 로컬 알림\n\n### 양쪽 레포의 통신 흐름\n```\n[Flutter 앱]                              [Cloud Run 서버]\n  ↓                                                ↑\n사용자 PDF 업로드 → POST /upload/document → Claude API로 문항 추출\n  ↓                                                ↑\n페르소나 설정     → POST /personas/generate  → KOSIS 통계 기반 생성\n  ↓                                                ↑\n시뮬레이션 시작   → POST /simulations/      → 백그라운드 작업 등록\n  ↓                                                ↓\n진행률 폴링       → GET /simulations/{id}   ← 임베딩 점수 예측\n  ↓                                                  + RAG 보정\n  ↓                                                  + 0.5B 이유 생성\n  ↓                                                  + 인간 편향 적용\n결과 화면         → GET /simulations/{id}/result\n```\n\n### API 통신 규약\n- REST + JSON / multipart 업로드\n- 비동기 작업은 폴링 패턴 (서버는 stateless, Firestore에 결과 저장)\n- 타임아웃 60초 (Claude 파싱 ~13초 고려)\n- 백엔드 응답 실패 시 클라이언트가 3단계 재시도 후 사용자에게 알림\n\n### 인증\n- 클라이언트 Firebase Auth로 토큰 발급 → 서버에 Bearer 전달\n- 서버는 firebase-admin SDK로 토큰 검증",
+      "codeFile": "api_service.dart / simulations.py",
+      "code": "// [Flutter] flutter_app/lib/services/api_service.dart\nFuture<Map<String, dynamic>> startSimulation({\n  required List<Map<String, dynamic>> personas,\n  required List<Map<String, dynamic>> questions,\n}) async {\n  final response = await _client.post(\n    Uri.parse('$baseUrl/api/v1/simulations/'),\n    headers: {'Content-Type': 'application/json'},\n    body: jsonEncode({\n      'personas': personas,\n      'questions': questions,\n      'generate_explanations': true,\n    }),\n  ).timeout(const Duration(seconds: 60));\n  return jsonDecode(utf8.decode(response.bodyBytes));\n}\n\n# [Server] aipa_engine/src/aipa_engine/api/simulations.py\n@router.post(\"/\", response_model=SimulationResponse)\nasync def create_simulation(\n    request: SimulationRequest,\n    background_tasks: BackgroundTasks,\n):\n    session_id = str(uuid.uuid4())\n    SESSIONS[session_id] = {\"status\": \"running\", \"progress\": 0}\n\n    # 백그라운드에서 임베딩 모델 → RAG → 0.5B 이유 생성 파이프라인 실행\n    background_tasks.add_task(\n        run_simulation_pipeline,\n        session_id, request.personas, request.questions,\n    )\n    return SimulationResponse(session_id=session_id, status=\"started\")"
+    },
+    {
+      "title": "Knowledge Distillation / 합성 학습 데이터 생성",
+      "content": "### 핵심 아이디어\n- 실제 사람 응답을 모으면 비용 수백만 원\n- 대신 Claude API에 \"이 페르소나가 이걸 보면 어떻게 평가할까?\"를 4,327번 질문\n- 그 답변을 정답 데이터로 모아 자체 경량 모델을 학습 → **Knowledge Distillation**\n\n### 데이터 구성\n- 16개 카테고리 × 124개 자극물(제품/광고/정책 시나리오)\n- 40명의 페르소나 (10대~60대, 남녀, 직업 20종)\n- 50개 평가축 (호감도, 구매의향, 가격적절성 등)\n- 총 2,925건의 평가 데이터 + 1,402건의 설문 응답 데이터\n\n### 비용 효율\n- Claude API 호출 4,327건 × 평균 토큰 비용 ≈ $37 (약 5만원)\n- 1회성 비용 → 이후 자체 모델로 무제한 추론 가능",
+      "codeFile": "generate_training_data.py",
+      "code": "# Claude API에 페르소나 × 자극물 조합으로 평가 질문\nSTIMULI = {\n    \"식품\": [...],     # 10개\n    \"화장품\": [...],   # 10개\n    \"앱/서비스\": [...],# 7개\n    \"광고\": [...],     # ...\n    # 16개 카테고리\n}\n\nasync def evaluate(persona, stimulus, axes):\n    prompt = f\"\"\"당신은 소비자 반응 평가 전문가입니다.\n[자극물] 유형: {stimulus.type} / 내용: {stimulus.text}\n[페르소나] {persona.age} {persona.gender} {persona.job}\n           특성: {', '.join(persona.traits)}\n[평가축] {', '.join(axes)}\n각 축에 0-100점과 근거를 JSON으로 응답하세요.\"\"\"\n\n    response = await claude.messages.create(\n        model=\"claude-sonnet-4-20250514\",\n        max_tokens=600,\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n    )\n    return parse_evaluation(response.content)"
+    },
+    {
+      "title": "자체 임베딩 점수 예측 모델 (PyTorch)",
+      "content": "### 모델 구조\n- 페르소나 속성(연령/성별/직업/특성 × 5)을 nn.Embedding으로 벡터화\n- 특성 5개는 Attention 메커니즘으로 중요도 가중합 (식품 평가 시 '가성비' 가중치 자동 상승)\n- 페르소나 인코더 + 컨텍스트 인코더 → 결합 → MLP → Sigmoid → 0~100점\n- 파라미터 수: 약 50,000개 (Qwen 7B의 1/140,000)\n\n### 학습 설정\n- Loss: MSE / Optimizer: Adam (lr=1e-3) / Scheduler: Cosine Annealing\n- 100 epochs, batch 64, Train/Eval 90:10\n- 학습 시간: CPU 5분\n\n### 결과\n- 평균 예측 오차: 8.7점 (100점 만점)\n- 추론 속도: 0.01초 (GPU 없이 CPU)\n- 모델 크기: 약 1MB\n\n### 정확한 분류\n- 이 모델은 임베딩 레이어를 활용한 **범주형 회귀 모델**\n- 출력이 벡터가 아닌 점수(scalar)이므로 일반적 의미의 \"임베딩 모델\"이 아닌 점수 예측 모델",
+      "codeFile": "train_embedding.py",
+      "code": "class PersonaEmbeddingModel(nn.Module):\n    def __init__(self, embed_dim=24, hidden_dim=64):\n        super().__init__()\n        self.age_embed        = nn.Embedding(6,  embed_dim)\n        self.gender_embed     = nn.Embedding(3,  embed_dim // 2)\n        self.occupation_embed = nn.Embedding(44, embed_dim)\n        self.trait_embed      = nn.Embedding(90, embed_dim)\n        self.category_embed   = nn.Embedding(16, embed_dim)\n        self.axis_embed       = nn.Embedding(50, embed_dim)\n\n        self.trait_attention  = nn.Linear(embed_dim, 1)\n        self.persona_encoder  = nn.Sequential(\n            nn.Linear(84, hidden_dim), nn.ReLU(),\n            nn.Dropout(0.2),\n            nn.Linear(hidden_dim, embed_dim))\n        self.predictor = nn.Sequential(\n            nn.Linear(48, 64), nn.ReLU(), nn.Dropout(0.2),\n            nn.Linear(64, 32), nn.ReLU(),\n            nn.Linear(32, 1),  nn.Sigmoid())\n\n    def forward(self, age, gender, occ, traits, cat, axis):\n        trait_vecs    = self.trait_embed(traits)               # (B, 5, D)\n        trait_weights = torch.softmax(\n            self.trait_attention(trait_vecs), dim=1)            # (B, 5, 1)\n        trait_vec     = (trait_vecs * trait_weights).sum(dim=1) # (B, D)\n        ...\n        return self.predictor(combined).squeeze(-1)             # 0~1"
+    },
+    {
+      "title": "Qwen 2.5-0.5B 파인튜닝 (이유 문장 생성)",
+      "content": "### 역할 분리 설계\n- 임베딩 모델: 점수만 0.01초에 예측\n- 0.5B LoRA 모델: 그 점수에 대한 \"왜 그런가\" 이유 문장 생성\n- 즉 0.5B는 추론하지 않음 → 임베딩 모델이 준 점수를 입력으로 받아 설명만 붙임\n\n### QLoRA 파인튜닝\n- 베이스 모델 Qwen 2.5-0.5B-Instruct를 NF4 4bit로 양자화 로드\n- LoRA 어댑터 (r=16, alpha=32) 부착 → 전체 파라미터의 약 1%만 학습\n- target_modules: q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj (Attention + FFN)\n- 학습 데이터를 \"입력: 페르소나+자극물+점수 → 출력: 이유\" 형태로 변환\n\n### 배포 최적화\n- LoRA 어댑터 + 베이스 모델 병합 (merge_and_unload)\n- llama.cpp 호환 GGUF q4_k_m 양자화 → 약 300~400MB\n- Cloud Run CPU 환경에서 1~2초에 이유 생성\n\n### 3단계 폴백\n1. 자체 0.5B 모델 (무료, CPU)\n2. Claude API (실패 시 유료 폴백)\n3. 템플릿 (둘 다 실패 시 고정 문장)\n→ 점수는 임베딩 모델이 이미 확정했으므로 이유 생성이 실패해도 핵심 기능 정상 동작",
+      "codeFile": "train_reasoning.py",
+      "code": "# QLoRA 4bit 양자화\nbnb_config = BitsAndBytesConfig(\n    load_in_4bit=True,\n    bnb_4bit_quant_type=\"nf4\",\n    bnb_4bit_compute_dtype=torch.bfloat16,\n    bnb_4bit_use_double_quant=True,\n)\n\nmodel = AutoModelForCausalLM.from_pretrained(\n    \"Qwen/Qwen2.5-0.5B-Instruct\",\n    quantization_config=bnb_config,\n    device_map=\"auto\",\n)\n\n# LoRA 어댑터 (전체 파라미터의 ~1%만 학습)\nmodel = prepare_model_for_kbit_training(model)\nlora_config = LoraConfig(\n    r=16, lora_alpha=32, lora_dropout=0.05,\n    bias=\"none\", task_type=\"CAUSAL_LM\",\n    target_modules=[\"q_proj\", \"k_proj\", \"v_proj\", \"o_proj\",\n                    \"gate_proj\", \"up_proj\", \"down_proj\"],\n)\nmodel = get_peft_model(model, lora_config)\n\n# SFT 학습 (2 epochs, batch 4 * grad_accum 4 = 16)\ntrainer = SFTTrainer(\n    model=model,\n    args=SFTConfig(\n        per_device_train_batch_size=4,\n        gradient_accumulation_steps=4,\n        learning_rate=2e-4,\n        lr_scheduler_type=\"cosine\",\n        num_train_epochs=2,\n        bf16=True,\n        optim=\"paged_adamw_8bit\",\n    ),\n    train_dataset=train_dataset,\n    eval_dataset=eval_dataset,\n    processing_class=tokenizer,\n)\ntrainer.train()"
+    },
+    {
+      "title": "RAG 트렌드 보정 (ChromaDB)",
+      "content": "### 왜 필요한가\n- 임베딩 모델은 학습 시점의 패턴만 알고 있음\n- 같은 \"유기농 식품\"이라도 2024년과 2026년의 관심도는 다름\n- 현재 트렌드를 반영하지 못하면 예측이 과거에 머무름\n\n### 동작 구조\n- 네이버 데이터랩 검색/쇼핑 트렌드 + KOSIS 통계 데이터를 주기 수집\n- ko-sroberta-multitask 모델로 텍스트 → 벡터 변환\n- ChromaDB에 저장 (collection: naver_trends, kosis_stats)\n- 평가 요청 시 자극물 키워드로 유사도 검색\n- 긍정 키워드(증가/상승/인기) 감지 시 트렌드 민감 축에 +3~10점 보정\n\n### 보정 대상 축\n- 호감도, 구매의향, 관심도, 사용의향, 참여의향, 클릭의향, 추천의향",
+      "codeFile": "eval_service.py",
+      "code": "def _get_trend_adjustment(self, request):\n    \"\"\"RAG에서 트렌드 검색 → 축별 보정값 계산\"\"\"\n    if not self._ensure_rag_loaded():\n        return {}\n\n    query = f\"{request.stimulus_type.value} {request.stimulus[:50]}\"\n    results = self._rag.search_trends(query, n_results=3)\n\n    documents = results.get(\"documents\", [[]])[0]\n    if not documents:\n        return {}\n\n    trend_count = len(documents)\n    base_boost  = min(trend_count * 3, 10)\n\n    trend_text = \" \".join(documents).lower()\n    positive   = sum(1 for k in [\"증가\", \"상승\", \"인기\", \"성장\"] if k in trend_text)\n    negative   = sum(1 for k in [\"감소\", \"하락\", \"위축\", \"부진\"] if k in trend_text)\n    sentiment  = (positive - negative) * 2\n\n    return {\n        axis: base_boost + sentiment\n        for axis in [\"호감도\", \"구매의향\", \"관심도\", \"사용의향\",\n                     \"참여의향\", \"클릭의향\", \"추천의향\"]\n    }"
+    },
+    {
+      "title": "인간 응답 편향 시뮬레이션 (8가지)",
+      "content": "### 왜 필요한가\n- AI가 생성한 \"이상적인\" 응답은 너무 깔끔해서 비현실적\n- 실제 사람은 다양한 인지/사회적 편향을 가지고 응답함\n- 설문 시뮬레이션이 실제 결과에 가까우려면 이 편향을 반영해야 함\n\n### 적용 편향 8종\n- **극단 회피**: 양 끝(매우 그렇다/전혀 아니다) 회피, 중간 선호 (한국인 특성)\n- **묵종 편향**: \"그렇다\" 쪽 동의 경향\n- **사회적 바람직성**: 환경/건강 질문에 더 긍정적 답변\n- **피로 효과**: 설문 후반부에 같은 답 반복\n- **무응답**: 민감 질문(소득/정치) 스킵\n- **또래 효과**: 같은 연령대끼리 비슷한 응답 수렴\n- **시간대 효과**: 야간 충동적, 월요일 부정적\n- **응답 노이즈**: 같은 사람도 ±5~10점 변동\n\n### 캘리브레이션\n- 생성된 패널의 인구 분포를 통계청 분포에 맞게 사후 가중치 보정\n- 실제 여론조사 기관이 사용하는 post-stratification 방법론 차용",
+      "codeFile": "response_generator.py",
+      "code": "AGE_RESPONSE_TRAITS = {\n    AgeGroup.TEENS: {\n        \"central_tendency\":     0.15,  # 극단 회피 약함\n        \"acquiescence\":         0.25,\n        \"social_desirability\":  0.30,\n        \"straight_lining\":      0.10,\n    },\n    AgeGroup.FIFTIES: {\n        \"central_tendency\":     0.45,  # 극단 회피 강함\n        \"acquiescence\":         0.50,\n        \"social_desirability\":  0.55,\n        \"straight_lining\":      0.35,\n    },\n}\n\ndef _apply_human_biases(self, persona, score, question):\n    traits = AGE_RESPONSE_TRAITS[persona.age_group]\n\n    # 1. 극단 회피\n    if random.random() < traits[\"central_tendency\"]:\n        score = score * 0.7 + 50 * 0.3\n\n    # 2. 묵종 편향\n    if random.random() < traits[\"acquiescence\"]:\n        score = min(100, score + random.uniform(3, 8))\n\n    # 3. 사회적 바람직성\n    if self._is_socially_sensitive(question):\n        if random.random() < traits[\"social_desirability\"]:\n            score = min(100, score + random.uniform(5, 12))\n\n    # 4. 응답 노이즈\n    score += random.gauss(0, 5)\n    return max(0, min(100, score))"
+    },
+    {
+      "title": "Flutter 모바일 앱 + Cloud Run 배포",
+      "content": "### 모바일 앱 구조\n- Flutter 3.x + Provider 상태 관리\n- 페르소나 빌더(연령/직업/성격 키워드 칩), PDF 업로드, 시뮬레이션 진행률, 결과 차트\n- AI 채팅 화면 (이미지 첨부 → Claude 멀티모달)\n- Firebase Auth (Google/Kakao/Email) + 백그라운드 작업 시 로컬 알림\n\n### 백엔드 인프라\n- GCP Cloud Run (서울 리전, --no-cpu-throttling, --min-instances=1)\n- Firestore: 시뮬레이션 세션/결과 저장\n- Docker 이미지: torch CPU + transformers + 자체 모델 가중치 포함\n- 메모리 4Gi, CPU 2, max-instances 3\n\n### 운영 안정성\n- 임베딩 모델 실패 → 자체 확률 엔진 폴백\n- 0.5B 모델 실패 → Claude API → 템플릿 3단계 폴백\n- Firestore 실패 → 메모리 임시 저장 후 재연결 시 동기화\n- 핵심 설문 시뮬레이션은 외부 API 의존 없이 100% 동작",
+      "codeFile": "Dockerfile",
+      "code": "FROM python:3.11-slim\nWORKDIR /app\n\nRUN apt-get update && apt-get install -y --no-install-recommends \\\n    build-essential \\\n    && rm -rf /var/lib/apt/lists/*\n\nCOPY pyproject.toml README.md ./\nCOPY src/ ./src/\nCOPY data/processed/ ./data/processed/\nCOPY training/models/embedding/   ./training/models/embedding/\nCOPY training/models/reasoning/merged/ ./training/models/reasoning/merged/\n\n# CPU 전용 torch + 의존성\nRUN pip install --no-cache-dir torch \\\n      --index-url https://download.pytorch.org/whl/cpu \\\n    && pip install --no-cache-dir .\n\nENV PORT=8080\nENV APP_ROOT=/app\nEXPOSE 8080\n\nCMD [\"sh\", \"-c\", \"uvicorn aipa_engine.main:app --host 0.0.0.0 --port $PORT\"]"
+    }
+  ],
+
+  "designPatterns": [
+    { "pattern": "Knowledge Distillation", "usage": "Claude API의 판단 능력을 4,327건 합성 데이터로 추출하여 경량 자체 모델 학습" },
+    { "pattern": "QLoRA Fine-tuning", "usage": "Qwen 2.5-0.5B를 NF4 4bit + LoRA r=16으로 효율적 파인튜닝" },
+    { "pattern": "Multi-stage Fallback", "usage": "이유 생성: 자체 0.5B → Claude API → 템플릿 3단계 폴백" },
+    { "pattern": "RAG (Retrieval-Augmented Generation)", "usage": "ChromaDB + ko-sroberta로 트렌드 데이터 검색 → 점수 보정" },
+    { "pattern": "Repository / Service Layer", "usage": "FastAPI 서비스에서 EvalService, SimulationService, ResponseGenerator 책임 분리" },
+    { "pattern": "Provider Pattern", "usage": "Flutter 앱에서 PersonaProvider, SurveyProvider로 상태 관리" },
+    { "pattern": "Stateless API + Background Task", "usage": "Cloud Run에서 시뮬레이션을 background task로 비동기 실행, 폴링으로 결과 조회" }
+  ],
+
+  "achievements": [
+    "서버(aipa_engine) + 클라이언트(flutter_app) 두 레포로 구성된 풀스택 시스템을 1인 단독 개발",
+    "Claude API 의존도를 채팅 기능만으로 제한, 설문 시뮬레이션은 자체 모델로 100% 동작",
+    "약 50,000개 파라미터의 경량 점수 예측 모델로 평균 오차 8.7점 / 추론 0.01초 달성",
+    "Qwen 2.5-0.5B를 QLoRA로 파인튜닝, GGUF 변환 후 CPU 환경에서 1~2초 이유 생성",
+    "8가지 인간 응답 편향과 캘리브레이션으로 AI 특유의 \"완벽한 응답\" 회피",
+    "Flutter 앱 ↔ FastAPI 서버 ↔ PyTorch 모델까지 전 계층 직접 설계 및 통합",
+    "Cloud Run --no-cpu-throttling + --min-instances=1로 배경 작업/콜드스타트 트레이드오프 해결",
+    "기존 설문조사 1회당 ~$0.5의 LLM 비용을 자체 모델로 0원화 (월 1,000회 사용 시 약 70만원 절감)"
+  ],
+
+  "lessonsLearned": [
+    "Knowledge Distillation을 활용하면 대형 모델 비용 없이 도메인 특화 경량 모델을 만들 수 있음을 검증",
+    "임베딩 레이어를 쓴다고 모두 \"임베딩 모델\"이 아니며, 출력이 벡터인지 스칼라인지로 정확히 명명해야 함을 체득",
+    "QLoRA + GGUF 변환 파이프라인으로 0.5B 모델을 CPU 환경에 실배포 가능함을 확인",
+    "AI 응답을 그대로 쓰지 않고 명시적 인간 편향 모델을 덧붙여야 현실에 가까운 시뮬레이션이 됨",
+    "Cloud Run의 CPU throttling, cold start, 5분 TTL 캐시 등 서버리스 운영 특성에 따른 비용/성능 트레이드오프 학습",
+    "Flutter ↔ FastAPI ↔ PyTorch 모델까지 풀스택 1인 개발의 일정/우선순위 관리 경험"
+  ],
+
+  "links": {
+    "github": "",
+    "githubServer": "",
+    "githubClient": "",
+    "demo": "",
+    "video": ""
+  }
+}

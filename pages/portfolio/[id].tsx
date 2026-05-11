@@ -16,6 +16,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
   const [activeTab, setActiveTab] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isPrint = router.query.print === "1";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +59,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
       <div className="min-h-screen bg-white" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>
         {/* Navigation */}
         <nav
-          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          className={`${isPrint ? "hidden" : "fixed"} top-0 left-0 right-0 z-50 transition-all duration-300 print:hidden ${
             scrolled ? "bg-white shadow-lg py-3" : "bg-white/95 backdrop-blur-sm py-4"
           }`}
         >
@@ -143,7 +144,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
         </nav>
 
         {/* Hero Section */}
-        <section id="hero" className="relative min-h-screen flex items-center pt-20" style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+        <section id="hero" className={`relative ${isPrint ? "min-h-0 py-12" : "min-h-screen pt-20"} flex items-center`} style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="container max-w-6xl mx-auto px-4 py-16 relative z-10">
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -240,12 +241,14 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
           </div>
 
           {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 text-center">
-            <div className="w-6 h-10 border-2 border-white/40 rounded-full mx-auto mb-2 flex justify-center pt-2">
-              <div className="w-1 h-2 bg-white/60 rounded-full animate-bounce"></div>
+          {!isPrint && (
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 text-center print:hidden">
+              <div className="w-6 h-10 border-2 border-white/40 rounded-full mx-auto mb-2 flex justify-center pt-2">
+                <div className="w-1 h-2 bg-white/60 rounded-full animate-bounce"></div>
+              </div>
+              <p className="text-sm">스크롤 하세요</p>
             </div>
-            <p className="text-sm">스크롤 하세요</p>
-          </div>
+          )}
         </section>
 
         {/* Overview Section */}
@@ -370,77 +373,133 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
               <p className="text-gray-600 mt-4">{portfolio.sections?.length || 0}가지 주요 시스템과 기술적 구현 상세</p>
             </div>
 
-            {/* Feature Tabs */}
-            <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {tabData.map((tab, idx) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(idx)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all ${
-                    activeTab === idx
-                      ? "bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg"
-                      : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
-                  }`}
-                >
-                  <span>{tab.icon}</span>
-                  <span className="hidden sm:inline">{tab.label}</span>
-                </button>
-              ))}
-            </div>
+            {/* Feature Tabs - hidden in print mode */}
+            {!isPrint && (
+              <div className="flex flex-wrap justify-center gap-2 mb-8 print:hidden">
+                {tabData.map((tab, idx) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(idx)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all ${
+                      activeTab === idx
+                        ? "bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg"
+                        : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
+                    }`}
+                  >
+                    <span>{tab.icon}</span>
+                    <span className="hidden sm:inline">{tab.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
 
-            {/* Tab Content */}
-            <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-              {portfolio.sections && portfolio.sections[activeTab] && (
-                <div className="grid md:grid-cols-2 gap-8">
-                  {/* Code Block */}
-                  <div className="bg-gray-900 rounded-xl overflow-hidden">
-                    <div className="flex items-center justify-between px-4 py-2 bg-gray-800">
-                      <span className="text-gray-400 text-sm">
-                        {(portfolio.sections[activeTab] as any).codeFile || `${portfolio.sections[activeTab].title}.cs`}
-                      </span>
-                      <span className="text-xs text-cyan-400">C#</span>
+            {/* Tab Content - in print mode render ALL sections */}
+            {isPrint ? (
+              <div className="space-y-8">
+                {portfolio.sections?.map((section: any, sIdx: number) => (
+                  <div key={sIdx} className="bg-white rounded-2xl shadow-xl p-6 md:p-8" style={{ pageBreakInside: "avoid", breakInside: "avoid" }}>
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div className="bg-gray-900 rounded-xl overflow-hidden">
+                        <div className="flex items-center justify-between px-4 py-2 bg-gray-800">
+                          <span className="text-gray-400 text-sm">
+                            {section.codeFile || `${section.title}.cs`}
+                          </span>
+                          <span className="text-xs text-cyan-400">C#</span>
+                        </div>
+                        <pre className="p-4 text-xs text-gray-300 overflow-hidden whitespace-pre-wrap" style={{ fontFamily: "'Fira Code', monospace" }}>
+                          <code>{section.code || `// ${section.title} 구현 코드`}</code>
+                        </pre>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                          {sIdx + 1}. {section.title}
+                        </h3>
+                        <div className="prose prose-gray">
+                          {section.content.split("\n").map((line: string, idx: number) => {
+                            if (line.startsWith("###") || line.startsWith("####")) {
+                              return (
+                                <h4 key={idx} className="text-lg font-semibold text-red-500 mt-4 mb-2 flex items-center gap-2">
+                                  <span>→</span> {line.replace(/^#+\s*/, "")}
+                                </h4>
+                              );
+                            }
+                            if (line.startsWith("-")) {
+                              return (
+                                <p key={idx} className="flex items-start gap-2 text-gray-600 mb-1 ml-4">
+                                  <span className="text-cyan-500">•</span>
+                                  {line.replace("-", "").trim()}
+                                </p>
+                              );
+                            }
+                            if (line.trim()) {
+                              return (
+                                <p key={idx} className="text-gray-600 mb-2">
+                                  {line}
+                                </p>
+                              );
+                            }
+                            return null;
+                          })}
+                        </div>
+                      </div>
                     </div>
-                    <pre className="p-4 text-sm text-gray-300 overflow-x-auto" style={{ maxHeight: "500px", fontFamily: "'Fira Code', monospace" }}>
-                      <code>{(portfolio.sections[activeTab] as any).code || `// ${portfolio.sections[activeTab].title} 구현 코드`}</code>
-                    </pre>
                   </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                {portfolio.sections && portfolio.sections[activeTab] && (
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {/* Code Block */}
+                    <div className="bg-gray-900 rounded-xl overflow-hidden">
+                      <div className="flex items-center justify-between px-4 py-2 bg-gray-800">
+                        <span className="text-gray-400 text-sm">
+                          {(portfolio.sections[activeTab] as any).codeFile || `${portfolio.sections[activeTab].title}.cs`}
+                        </span>
+                        <span className="text-xs text-cyan-400">C#</span>
+                      </div>
+                      <pre className="p-4 text-sm text-gray-300 overflow-x-auto" style={{ maxHeight: "500px", fontFamily: "'Fira Code', monospace" }}>
+                        <code>{(portfolio.sections[activeTab] as any).code || `// ${portfolio.sections[activeTab].title} 구현 코드`}</code>
+                      </pre>
+                    </div>
 
-                  {/* Feature Info */}
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                      {activeTab + 1}. {portfolio.sections[activeTab].title}
-                    </h3>
-                    <div className="prose prose-gray">
-                      {portfolio.sections[activeTab].content.split("\n").map((line, idx) => {
-                        if (line.startsWith("###") || line.startsWith("####")) {
-                          return (
-                            <h4 key={idx} className="text-lg font-semibold text-red-500 mt-4 mb-2 flex items-center gap-2">
-                              <span>→</span> {line.replace(/^#+\s*/, "")}
-                            </h4>
-                          );
-                        }
-                        if (line.startsWith("-")) {
-                          return (
-                            <p key={idx} className="flex items-start gap-2 text-gray-600 mb-1 ml-4">
-                              <span className="text-cyan-500">•</span>
-                              {line.replace("-", "").trim()}
-                            </p>
-                          );
-                        }
-                        if (line.trim()) {
-                          return (
-                            <p key={idx} className="text-gray-600 mb-2">
-                              {line}
-                            </p>
-                          );
-                        }
-                        return null;
-                      })}
+                    {/* Feature Info */}
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                        {activeTab + 1}. {portfolio.sections[activeTab].title}
+                      </h3>
+                      <div className="prose prose-gray">
+                        {portfolio.sections[activeTab].content.split("\n").map((line, idx) => {
+                          if (line.startsWith("###") || line.startsWith("####")) {
+                            return (
+                              <h4 key={idx} className="text-lg font-semibold text-red-500 mt-4 mb-2 flex items-center gap-2">
+                                <span>→</span> {line.replace(/^#+\s*/, "")}
+                              </h4>
+                            );
+                          }
+                          if (line.startsWith("-")) {
+                            return (
+                              <p key={idx} className="flex items-start gap-2 text-gray-600 mb-1 ml-4">
+                                <span className="text-cyan-500">•</span>
+                                {line.replace("-", "").trim()}
+                              </p>
+                            );
+                          }
+                          if (line.trim()) {
+                            return (
+                              <p key={idx} className="text-gray-600 mb-2">
+                                {line}
+                              </p>
+                            );
+                          }
+                          return null;
+                        })}
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         </section>
 
@@ -663,14 +722,16 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
         </footer>
 
         {/* Scroll to Top Button */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className={`fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 ${
-            scrolled ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
-        >
-          ↑
-        </button>
+        {!isPrint && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className={`fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 print:hidden ${
+              scrolled ? "opacity-100 visible" : "opacity-0 invisible"
+            }`}
+          >
+            ↑
+          </button>
+        )}
       </div>
     </>
   );
