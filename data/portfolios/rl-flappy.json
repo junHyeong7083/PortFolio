@@ -1,0 +1,135 @@
+{
+  "id": "rl-flappy",
+  "title": "Flappy Bird PPO",
+  "subtitle": "강화학습 기반 자동 플레이 에이전트",
+  "thumbnail": "/assets/portfolios/RL-Flappy/training_plot.png",
+  "order": 4,
+  "periodDisplay": "2025.11~2025.12",
+  "gradient": ["#0a1612", "#10b981"],
+  "tags": ["Python 3.10", "PyTorch", "PPO", "Gymnasium", "Reinforcement Learning"],
+  "summary": "PPO(Proximal Policy Optimization) 알고리즘으로 Flappy Bird를 자동 플레이하는 Actor-Critic 강화학습 에이전트. 5M 스텝 학습으로 최고 Reward 1,400 / 파이프 300+ 통과 달성. GAE 기반 Advantage 계산과 Clipped Surrogate Objective로 안정적 학습 구현.",
+
+  "hero": {
+    "titleImage": "/assets/portfolios/RL-Flappy/training_plot.png",
+    "stats": [
+      { "icon": "🎯", "label": "Reward 1,400", "sub": "최고 누적 보상" },
+      { "icon": "🐦", "label": "파이프 300+", "sub": "한 에피소드 통과 수" },
+      { "icon": "⚡", "label": "5,000,000 Steps", "sub": "총 학습 스텝" },
+      { "icon": "📊", "label": "16,000+ EP", "sub": "총 에피소드" }
+    ],
+    "media": {
+      "images": [
+        "/assets/portfolios/RL-Flappy/training_plot.png",
+        "/assets/portfolios/RL-Flappy/gameplay.gif"
+      ]
+    }
+  },
+
+  "info": {
+    "period": "2025.11 ~ 2025.12",
+    "duration": "약 1개월 (강화학습 수업 과제)",
+    "team": "1인 개발",
+    "teamDetail": "알고리즘 구현 / 하이퍼파라미터 튜닝 / 학습 분석 단독 수행",
+    "role": "PPO 에이전트 설계 및 학습",
+    "engine": "Python 3.10 + PyTorch (CUDA)",
+    "platform": "Linux/Windows (학습용 GPU 환경)"
+  },
+
+  "features": [
+    "PPO Clipped Surrogate Objective 직접 구현",
+    "Actor-Critic 네트워크 (Actor: 행동 확률 / Critic: 가치 추정)",
+    "GAE(Generalized Advantage Estimation)로 안정적 Advantage 추정",
+    "Entropy bonus로 충분한 탐색 유지",
+    "TensorBoard 학습 로깅 + Matplotlib 학습 곡선 시각화",
+    "학습된 가중치 저장 및 자동 재생 모드"
+  ],
+
+  "techStack": [
+    { "category": "언어", "value": "Python 3.10" },
+    { "category": "ML 프레임워크", "value": "PyTorch (CUDA)" },
+    { "category": "강화학습 환경", "value": "flappy-bird-gymnasium" },
+    { "category": "알고리즘", "value": "PPO + GAE + Actor-Critic" },
+    { "category": "시각화", "value": "Matplotlib, TensorBoard" },
+    { "category": "데이터", "value": "Pandas, CSV 로그" }
+  ],
+
+  "techStackGroups": [
+    {
+      "title": "강화학습",
+      "icon": "🧠",
+      "items": [
+        { "name": "PPO", "desc": "Proximal Policy Optimization", "abbr": "PPO" },
+        { "name": "Actor-Critic", "desc": "정책 + 가치 함수", "abbr": "AC" },
+        { "name": "GAE", "desc": "Advantage 추정", "abbr": "GAE" },
+        { "name": "Entropy Bonus", "desc": "탐색 유지", "abbr": "EB" }
+      ]
+    },
+    {
+      "title": "프레임워크",
+      "icon": "🔬",
+      "items": [
+        { "name": "PyTorch", "desc": "신경망 학습", "abbr": "PT" },
+        { "name": "Gymnasium", "desc": "RL 환경 인터페이스", "abbr": "GY" },
+        { "name": "TensorBoard", "desc": "학습 로그 시각화", "abbr": "TB" }
+      ]
+    }
+  ],
+
+  "sections": [
+    {
+      "title": "프로젝트 배경",
+      "content": "### 강화학습 수업 과제로 시작\n- 정책 기반 강화학습 알고리즘(PPO)을 직접 구현하고 게임 환경에서 검증\n- 단순 Q-learning이 아닌 **policy gradient + Actor-Critic** 구조에 대한 이해 확인이 목적\n\n### Flappy Bird를 선택한 이유\n- 행동 공간이 단순(Flap/No Flap)하지만 보상 신호가 sparse → 강화학습의 핵심 어려움이 잘 드러남\n- gymnasium 호환 환경이 있어 표준 인터페이스로 학습 가능\n- 학습 진행 정도를 시각적으로 즉시 확인 가능 (파이프 통과 수)\n\n### 결과\n| 항목 | 값 |\n|------|-----|\n| 총 학습 스텝 | 5,000,000 |\n| 총 에피소드 | 16,000+ |\n| 최고 Reward | 1,400 |\n| 최고 파이프 통과 | 300+ |",
+      "codeFile": "README.md",
+      "code": "# Flappy Bird 강화학습 프로젝트\n#\n# Period   : 2025.11 ~ 2025.12\n# Course   : 강화학습 (Reinforcement Learning)\n# Algorithm: PPO (Proximal Policy Optimization)\n# Env      : flappy-bird-gymnasium\n#\n# Results\n#  - 5,000,000 training steps\n#  - 16,000+ episodes\n#  - Max reward: 1,400\n#  - Max pipes passed: 300+\n#\n# Stack\n#  Python 3.10 + PyTorch (CUDA)\n#  Gymnasium / TensorBoard / Matplotlib"
+    },
+    {
+      "title": "PPO 알고리즘 / Clipped Surrogate Objective",
+      "content": "### 핵심 아이디어\n- 정책 업데이트 시 새 정책이 이전 정책에서 너무 멀어지지 않도록 제한\n- 비율 r(θ) = π_new(a|s) / π_old(a|s)을 [1-ε, 1+ε] 범위로 클리핑\n- 안정적 학습 보장 + 표본 효율성 향상\n\n### 손실 함수 구성\n```\nL_total = L_clip - c1 * L_value + c2 * L_entropy\n```\n- **L_clip**: 정책 손실 (Clipped Surrogate)\n- **L_value**: 가치 함수 손실 (MSE)\n- **L_entropy**: 엔트로피 보너스 (탐색 유지)\n\n### 하이퍼파라미터\n| 파라미터 | 값 |\n|----------|-----|\n| Learning Rate | 3e-4 |\n| Gamma (할인율) | 0.99 |\n| GAE Lambda | 0.95 |\n| PPO Clip ε | 0.2 |\n| PPO Epochs | 10 |\n| Batch Size | 64 |\n| N Steps (rollout) | 2048 |\n| Entropy Coef | 0.01 |",
+      "codeFile": "agent.py",
+      "code": "class PPOAgent(nn.Module):\n    def __init__(self, obs_dim, act_dim):\n        super().__init__()\n        # Actor: 상태 → 행동 확률\n        self.actor = nn.Sequential(\n            nn.Linear(obs_dim, 128), nn.ReLU(),\n            nn.Linear(128, 128),     nn.ReLU(),\n            nn.Linear(128, act_dim),\n        )\n        # Critic: 상태 → 가치 추정\n        self.critic = nn.Sequential(\n            nn.Linear(obs_dim, 128), nn.ReLU(),\n            nn.Linear(128, 128),     nn.ReLU(),\n            nn.Linear(128, 1),\n        )\n\n    def update(self, batch):\n        ratio = torch.exp(new_log_probs - old_log_probs)\n        surr1 = ratio * advantages\n        surr2 = torch.clamp(ratio, 1 - CLIP_EPS, 1 + CLIP_EPS) * advantages\n\n        actor_loss   = -torch.min(surr1, surr2).mean()\n        critic_loss  = F.mse_loss(values, returns)\n        entropy_loss = -dist.entropy().mean()\n\n        loss = actor_loss + 0.5 * critic_loss + 0.01 * entropy_loss\n        self.optimizer.zero_grad()\n        loss.backward()\n        self.optimizer.step()"
+    },
+    {
+      "title": "GAE (Generalized Advantage Estimation)",
+      "content": "### 왜 필요한가\n- 단순 TD(0) Advantage: 분산은 낮지만 편향 큼\n- Monte-Carlo Advantage: 편향은 없지만 분산 큼\n- **GAE**: λ 파라미터로 둘 사이의 trade-off 제어\n\n### 수식\n```\nA_t^GAE(λ) = Σ (γλ)^l * δ_(t+l)\n δ_t = r_t + γ * V(s_(t+1)) - V(s_t)\n```\n\n### 효과\n- λ = 0.95로 설정 → 편향과 분산의 균형\n- 학습 안정성 크게 향상\n- 학습 곡선이 부드럽게 상승하며 200만 스텝 부근에서 reward 1,000 돌파",
+      "codeFile": "train_flappy_bird.py",
+      "code": "def compute_gae(rewards, values, dones, gamma=0.99, lam=0.95):\n    advantages = []\n    gae = 0\n    next_value = 0\n\n    for t in reversed(range(len(rewards))):\n        if dones[t]:\n            next_value = 0\n            gae = 0\n        delta = rewards[t] + gamma * next_value - values[t]\n        gae   = delta + gamma * lam * gae\n        advantages.insert(0, gae)\n        next_value = values[t]\n\n    returns = [a + v for a, v in zip(advantages, values)]\n    return advantages, returns"
+    },
+    {
+      "title": "학습 곡선 분석",
+      "content": "### 학습 단계별 변화\n- **0 ~ 500K 스텝**: 무작위 행동, Reward 거의 0\n- **500K ~ 1.5M 스텝**: 파이프 1~5개 통과, Reward 50~200\n- **1.5M ~ 3M 스텝**: 파이프 30~100개, Reward 500~900\n- **3M ~ 5M 스텝**: 안정적으로 파이프 100+ 통과, 최고 1,400 Reward\n\n### 학습 안정화 기법\n- Entropy bonus 0.01 유지 → 후반에도 탐색 멈추지 않음\n- N steps 2048로 충분한 rollout 확보\n- PPO 클립 비율 0.2로 정책 급변 방지\n\n### 관찰된 문제와 해결\n- **문제 1**: 학습 초기 reward가 너무 sparse해 학습 진행 안 됨\n  - 해결: reward shaping 추가 (살아있는 시간 비례 보상)\n- **문제 2**: 일정 수준 도달 후 plateau\n  - 해결: entropy coefficient 미세 조정으로 탐색 유지",
+      "codeFile": "plot_log.py",
+      "code": "# 학습 로그 시각화\ndef plot_training(log_path):\n    df = pd.read_csv(log_path)\n\n    fig, axes = plt.subplots(2, 1, figsize=(10, 8))\n\n    # Reward 곡선\n    axes[0].plot(df['step'], df['reward'].rolling(100).mean(), label='Reward (MA100)')\n    axes[0].axhline(y=1400, color='r', linestyle='--', label='Best: 1,400')\n    axes[0].set_xlabel('Steps')\n    axes[0].set_ylabel('Reward')\n    axes[0].legend()\n\n    # 파이프 통과 수\n    axes[1].plot(df['step'], df['pipes'].rolling(100).mean(), label='Pipes (MA100)')\n    axes[1].axhline(y=300, color='r', linestyle='--', label='Best: 300+')\n    axes[1].set_xlabel('Steps')\n    axes[1].set_ylabel('Pipes Passed')\n    axes[1].legend()\n\n    plt.tight_layout()\n    plt.savefig('training_summary_plot.png', dpi=120)"
+    }
+  ],
+
+  "designPatterns": [
+    { "pattern": "Actor-Critic", "usage": "정책 네트워크와 가치 네트워크 분리, 각각 다른 손실로 학습" },
+    { "pattern": "Clipped Objective", "usage": "PPO의 핵심 - 정책 업데이트 비율을 ±ε로 제한해 안정성 확보" },
+    { "pattern": "GAE", "usage": "γλ 가중치로 TD와 MC 사이의 편향-분산 trade-off 제어" },
+    { "pattern": "Rollout Buffer", "usage": "N steps만큼 경험 수집 후 미니배치로 K 에포크 업데이트" }
+  ],
+
+  "achievements": [
+    "PPO + Actor-Critic 알고리즘을 PyTorch로 처음부터 구현",
+    "5,000,000 스텝 학습 완료, 최고 Reward 1,400 / 파이프 300+ 달성",
+    "GAE / Entropy bonus / Clipped Objective의 강화학습 안정화 기법 직접 적용 및 효과 검증",
+    "학습 로그 자동 수집 → CSV / TensorBoard / Matplotlib로 분석 파이프라인 구축",
+    "강화학습 수업 PDF 보고서 작성 (하이퍼파라미터 ablation 분석 포함)"
+  ],
+
+  "lessonsLearned": [
+    "정책 기반 강화학습에서 안정성 확보가 얼마나 까다로운지 체감 - Clipped Surrogate Objective의 실효성 확인",
+    "Reward shaping의 중요성: 보상이 sparse하면 학습 자체가 시작되지 않음",
+    "Entropy bonus 비중에 따라 탐색-수렴의 균형이 크게 달라짐을 실험적으로 검증",
+    "GAE λ 값을 0.9 / 0.95 / 1.0으로 변경하며 학습 곡선이 어떻게 변하는지 직접 비교",
+    "강화학습은 하이퍼파라미터에 매우 민감 → 학습 로그 자동화가 필수"
+  ],
+
+  "links": {
+    "github": "https://github.com/junHyeong7083/rl-flappy-bird-train",
+    "demo": "",
+    "video": "",
+    "paper": "/assets/portfolios/RL-Flappy/rl_flappy_report.pdf",
+    "paperLabel": "학습 보고서"
+  }
+}

@@ -3,7 +3,7 @@
   "title": "AIPA",
   "subtitle": "AI 페르소나 기반 설문 시뮬레이션 플랫폼",
   "thumbnail": "/assets/portfolios/AIPA/pipeline.png",
-  "order": 6,
+  "order": 7,
   "periodDisplay": "2026.01 ~ 현재 진행 중",
   "gradient": ["#0a1729", "#7c3aed"],
   "tags": ["Python", "FastAPI", "PyTorch", "Flutter", "Qwen LoRA", "ChromaDB", "GCP Cloud Run"],

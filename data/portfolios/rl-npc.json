@@ -3,7 +3,7 @@
   "title": "강화학습 협동 NPC",
   "subtitle": "유저 적응형 AI 전투 시스템",
   "thumbnail": "/assets/portfolios/RL-NPC/title.png",
-  "order": 4,
+  "order": 5,
   "periodDisplay": "2025.10~2025.11",
   "gradient": ["#0a1612", "#059669"],
   "tags": ["Python", "PyTorch", "Unity", "C#", "Reinforcement Learning"],

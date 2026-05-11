@@ -3,7 +3,7 @@
   "title": "Hanam MC",
   "subtitle": "하남시 정신건강 산학협력 프로젝트",
   "thumbnail": "/assets/portfolios/HanamMC/title.png",
-  "order": 5,
+  "order": 6,
   "periodDisplay": "2025.09~2025.12 / 2026.02~2026.03 (학교 사정으로 중단)",
   "gradient": ["#0a1f2e", "#3b82f6"],
   "tags": ["Unity 6", "C#", "URP", "LiteDB", "Whisper STT", "BCrypt"],

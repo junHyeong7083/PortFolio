@@ -229,7 +229,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-800 transition-all"
                     >
-                      📄 논문 PDF
+                      📄 {(portfolio.links as any).paperLabel || "논문 PDF"}
                     </a>
                   )}
                 </div>
@@ -727,7 +727,7 @@ const PortfolioPage: NextPage<PortfolioPageProps> = ({ portfolio, profile }) => 
                   {(portfolio.links as any).paper && (
                     <li>
                       <a href={`${router.basePath}${(portfolio.links as any).paper}`} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white flex items-center gap-2">
-                        📄 논문 PDF
+                        📄 {(portfolio.links as any).paperLabel || "논문 PDF"}
                       </a>
                     </li>
                   )}
